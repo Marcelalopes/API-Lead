@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using API.Dtos.Collaborator;
 using API.Models;
 
 namespace API.Services.Interfaces
@@ -10,8 +11,8 @@ namespace API.Services.Interfaces
         IEnumerable<Collaborator> GetAllDisable();
         Collaborator GetByCpf(string cpf);
         Collaborator GetByName(string name);
-        Collaborator Add(Collaborator collaborator);
-        void Update(Collaborator collaborator);
+        CollaboratorNewDto Add(CollaboratorNewDto collaborator);
+        void Update(CollaboratorUpdateDto collaborator);
         Boolean Disable(string cpf);
         Boolean Reactivate(string cpf);
     }

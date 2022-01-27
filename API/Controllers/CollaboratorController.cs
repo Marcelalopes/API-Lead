@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using API.Context;
+using API.Dtos.Collaborator;
 using API.Models;
 using API.Services;
 using API.Services.Interfaces;
@@ -43,17 +44,15 @@ namespace API.Controllers
         }
 
         [HttpPost("add")]
-        public ActionResult<Collaborator> AddCollaborator([FromBody] Collaborator collaborator)
+        public ActionResult<CollaboratorNewDto> AddCollaborator([FromBody] CollaboratorNewDto collaborator)
         {
             var result = _collaboratorService.Add(collaborator);
             return new CreatedResult("", result);
         }
 
         [HttpPut("update/{cpf}:string")]
-        public ActionResult UpdateCollaborator([FromBody] Collaborator collaborator, string cpf)
+        public ActionResult UpdateCollaborator([FromBody] CollaboratorUpdateDto collaborator, string cpf)
         {
-            if (cpf != collaborator.CPF)
-                return new BadRequestResult();
 
             _collaboratorService.Update(collaborator);
             return new OkObjectResult(collaborator);

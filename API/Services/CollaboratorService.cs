@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using API.Context;
+using API.Dtos.Collaborator;
 using API.Models;
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
 
 namespace API.Services
 {
-    public class CollaboratorService: ICollaboratorService
+    public class CollaboratorService : ICollaboratorService
     {
         private readonly ICollaboratorRepository _collaboratorRepository;
 
@@ -35,12 +36,29 @@ namespace API.Services
             var coll = _collaboratorRepository.SearchName(name);
             return coll;
         }
-        public Collaborator Add(Collaborator collaborator)
+        public CollaboratorNewDto Add(CollaboratorNewDto newCollaborator)
         {
-            return _collaboratorRepository.Add(collaborator);
+            Collaborator collaborator = new Collaborator()
+            {
+                CPF = newCollaborator.CPF,
+                Name = newCollaborator.Name,
+                BirthDate = newCollaborator.BirthDate,
+                Gender = newCollaborator.Gender,
+                Phone = newCollaborator.Phone,
+                AddressId = newCollaborator.AddressId
+            };
+            _collaboratorRepository.Add(collaborator);
+            return newCollaborator;
         }
-        public void Update(Collaborator collaborator)
+        public void Update(CollaboratorUpdateDto updateCollaborator)
         {
+            Collaborator collaborator = new Collaborator()
+            {
+                Name = updateCollaborator.Name,
+                Gender = updateCollaborator.Gender,
+                Phone = updateCollaborator.Phone,
+                AddressId = updateCollaborator.AddressId
+            };
             _collaboratorRepository.Update(collaborator);
         }
         public Boolean Disable(string cpf)

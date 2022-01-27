@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using API.Context;
+using API.Dtos.Address;
 using API.Models;
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
 
 namespace API.Services
 {
-    public class AddressService: IAddressService
+    public class AddressService : IAddressService
     {
         private readonly IAddressRepository _addressRepository;
         public AddressService(IAddressRepository addressRepository)
@@ -24,12 +25,29 @@ namespace API.Services
         {
             return _addressRepository.Search(id);
         }
-        public Address Add(Address address)
+        public AddressNewDto Add(AddressNewDto newAddress)
         {
-            return _addressRepository.Add(address);
+            Address address = new Address()
+            {
+                Street = newAddress.Street,
+                Number = newAddress.Number,
+                District = newAddress.District,
+                City = newAddress.City,
+                State = newAddress.State
+            };
+            _addressRepository.Add(address);
+            return newAddress;
         }
-        public void Update(Address address)
+        public void Update(AddressNewDto updateAddress)
         {
+            Address address = new Address()
+            {
+                Street = updateAddress.Street,
+                Number = updateAddress.Number,
+                District = updateAddress.District,
+                City = updateAddress.City,
+                State = updateAddress.State
+            };
             _addressRepository.Update(address);
         }
         public Boolean Disable(Guid id)

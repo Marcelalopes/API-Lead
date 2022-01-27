@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using API.Dtos.Address;
 using API.Models;
 
 namespace API.Services.Interfaces
@@ -9,8 +10,8 @@ namespace API.Services.Interfaces
     {
         IEnumerable<Address> GetAll();
         Address SearchId (Guid id);
-        Address Add(Address address);
-        void Update(Address address);
+        AddressNewDto Add(AddressNewDto address);
+        void Update(AddressNewDto address);
         Boolean Disable(Guid id);
         Boolean Reactivate(Guid id);
     }

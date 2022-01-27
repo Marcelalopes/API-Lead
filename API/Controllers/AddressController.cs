@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using API.Context;
+using API.Dtos.Address;
 using API.Models;
 using API.Services;
 using API.Services.Interfaces;
@@ -32,18 +33,15 @@ namespace API.Controllers
         }
 
         [HttpPost("add")]
-        public ActionResult<Address> AddAddress([FromBody] Address address)
+        public ActionResult<AddressNewDto> AddAddress([FromBody] AddressNewDto address)
         {
             var result = _addressService.Add(address);
             return new CreatedResult("", result);
         }
 
         [HttpPut("update/{id}:Guid")]
-        public ActionResult UpdateAddress([FromBody] Address address, Guid id)
+        public ActionResult UpdateAddress([FromBody] AddressNewDto address, Guid id)
         {
-            if (id != address.Id)
-                return new BadRequestResult();
-
             _addressService.Update(address);
             return new OkObjectResult(address);
         }
