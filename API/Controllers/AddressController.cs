@@ -31,10 +31,12 @@ namespace API.Controllers
             [FromQuery] OrderByColumnAddressEnum orderByColumn = OrderByColumnAddressEnum.City
         )
         {
-            try{
-            var result = await _addressService.GetAll(pageSize, pageNumber, search, orderByType, orderByColumn);
-            return new ObjectResult(result);
-            }catch (Exception e)
+            try
+            {
+                var result = await _addressService.GetAll(pageSize, pageNumber, search, orderByType, orderByColumn);
+                return new ObjectResult(result);
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
@@ -49,9 +51,16 @@ namespace API.Controllers
         [HttpGet("searchId")]
         public async Task<ActionResult<AddressDto>> SearchIdAddress(Guid id)
         {
-            try{
-            return new ObjectResult(await _addressService.SearchId(id));
-            }catch (Exception e)
+            try
+            {
+                var result = await _addressService.SearchId(id);
+
+                if (result == null)
+                    return NotFound();
+                    
+                return Ok(result);
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
@@ -78,10 +87,12 @@ namespace API.Controllers
         [HttpPost("add")]
         public async Task<ActionResult<AddressNewDto>> AddAddress([FromBody] AddressNewDto address)
         {
-            try{
-            var result = await _addressService.Add(address);
-            return new CreatedResult("", result);
-            }catch (Exception e)
+            try
+            {
+                var result = await _addressService.Add(address);
+                return new CreatedResult("", result);
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
@@ -109,10 +120,13 @@ namespace API.Controllers
         [HttpPut("update/{id}:Guid")]
         public async Task<ActionResult> UpdateAddress([FromBody] AddressNewDto address, Guid id)
         {
-            try{
-            await _addressService.Update(address, id);
-            return new OkObjectResult(address);
-            }catch (Exception e)
+            try
+            {
+                if (!await _addressService.Update(address, id))
+                    return NotFound();
+                return NoContent();
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
@@ -128,10 +142,12 @@ namespace API.Controllers
         [HttpDelete("disable/{id}:Guid")]
         public async Task<ActionResult> DisableAddress(Guid id)
         {
-            try{
-            var result = await _addressService.Disable(id);
-            return result ? new OkResult() : new NotFoundResult();
-            }catch (Exception e)
+            try
+            {
+                var result = await _addressService.Disable(id);
+                return result ? new OkResult() : new NotFoundResult();
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
@@ -147,10 +163,12 @@ namespace API.Controllers
         [HttpPut("reactivate/{id}:Guid")]
         public async Task<ActionResult> ReactivateAddress(Guid id)
         {
-            try{
-            var result = await _addressService.Reactivate(id);
-            return result ? new OkResult() : new NotFoundResult();
-            }catch (Exception e)
+            try
+            {
+                var result = await _addressService.Reactivate(id);
+                return result ? new OkResult() : new NotFoundResult();
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
