@@ -35,26 +35,15 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("conexaoMySQL");
-            services.AddDbContextPool<AppDbContext>(options =>
-                options.UseMySql(
-                    connection, ServerVersion.AutoDetect(connection)
-                )
-            );
+            services.AddDatabase(Configuration);
 
-            services.AddScoped<ICollaboratorService, CollaboratorService>();
-            services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
-
-            services.AddScoped<IAddressService, AddressService>();
-            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddDependeci();
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
-            });
+
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +53,7 @@ namespace api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "api v1"));
+                app.UseSwaggerConfig(env);
             }
 
             app.UseHttpsRedirection();
