@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using API.Context;
 using API.Models;
 using API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,45 +13,52 @@ namespace API.Controllers
     public class AddressController : ControllerBase
     {
         private readonly AddressService _addressService;
-        public AddressController()
+        public AddressController(AppDbContext context)
         {
-            _addressService = new AddressService();
+            _addressService = new AddressService(context);
         }
 
         [HttpGet("getAll")]
-        public string GetAllAddress()
+        public ActionResult<IEnumerable<Address>> GetAllAddress()
         {
-            return _addressService.GetAll();
+            return new ObjectResult(_addressService.GetAll().ToList());
         }
 
         [HttpGet("searchId")]
-        public string SearchIdAddress()
+        public ActionResult<Address> SearchIdAddress(Guid id)
         {
-            return _addressService.SearchId();
+            return new ObjectResult(_addressService.SearchId(id));
         }
 
         [HttpPost("add")]
-        public Address AddAddress(Address address)
+        public ActionResult<Address> AddAddress([FromBody] Address address)
         {
-            return _addressService.Add(address);
+            var result = _addressService.Add(address);
+            return new CreatedResult("", result);
         }
 
         [HttpPut("update/{id}:Guid")]
-        public string UpdateAddress()
+        public ActionResult UpdateAddress([FromBody] Address address, Guid id)
         {
-            return _addressService.Update();
+            if (id != address.Id)
+                return new BadRequestResult();
+
+            _addressService.Update(address);
+            return new OkObjectResult(address);
         }
 
         [HttpDelete("disable/{id}:Guid")]
-        public string DisableAddress()
+        public ActionResult DisableAddress(Guid id)
         {
-            return _addressService.Disable();
+            var result = _addressService.Disable(id);
+            return result ? new OkResult() : new NotFoundResult();
         }
 
         [HttpPut("reactivate/{id}:Guid")]
-        public string ReactivateAddress()
+        public ActionResult ReactivateAddress(Guid id)
         {
-            return _addressService.Reactivate();
+            var result = _addressService.Reactivate(id);
+            return result ? new OkResult() : new NotFoundResult();
         }
     }
 }
