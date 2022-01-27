@@ -3,7 +3,7 @@ using System;
 namespace API.Dtos.Collaborator
 {
     public class CollaboratorDto
-    {
+    {        
         public string CPF { get; set; }
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
