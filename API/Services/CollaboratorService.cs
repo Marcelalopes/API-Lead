@@ -4,64 +4,65 @@ using System.Collections.Generic;
 using System.Linq;
 using API.Context;
 using API.Models;
+using API.Repository.Interfaces;
+using API.Services.Interfaces;
 
 namespace API.Services
 {
-    public class CollaboratorService
+    public class CollaboratorService: ICollaboratorService
     {
-        private readonly AppDbContext _context;
+        private readonly ICollaboratorRepository _collaboratorRepository;
 
-        public CollaboratorService(AppDbContext context)
+        public CollaboratorService(ICollaboratorRepository collaboratorRepository)
         {
-            _context = context;
+            _collaboratorRepository = collaboratorRepository;
         }
         public IEnumerable<Collaborator> GetAllActive()
         {
-            return _context.Collaborator.ToList().Where(x => x.isActive == true);
+            return _collaboratorRepository.GetAll().ToList().Where(x => x.isActive == true);
         }
         public IEnumerable<Collaborator> GetAllDisable()
         {
-            return _context.Collaborator.ToList().Where(x => x.isActive == false);
+            return _collaboratorRepository.GetAll().ToList().Where(x => x.isActive == false);
         }
         public Collaborator GetByCpf(string cpf)
         {
-            var coll = _context.Collaborator.First(c => c.CPF == cpf);
+            var coll = _collaboratorRepository.SearchCpf(cpf);
             return coll;
         }
         public Collaborator GetByName(string name)
         {
-            var coll = _context.Collaborator.First(c => c.Name == name);
+            var coll = _collaboratorRepository.SearchName(name);
             return coll;
         }
         public Collaborator Add(Collaborator collaborator)
         {
-            _context.Collaborator.Add(collaborator);
-            _context.SaveChanges();
-            return collaborator;
+            return _collaboratorRepository.Add(collaborator);
         }
         public void Update(Collaborator collaborator)
         {
-            _context.Collaborator.Update(collaborator);
-            _context.SaveChanges();
+            _collaboratorRepository.Update(collaborator);
         }
         public Boolean Disable(string cpf)
         {
-            var coll = _context.Collaborator.FirstOrDefault(x => x.CPF == cpf);
+            var coll = _collaboratorRepository.SearchCpf(cpf);
             if (coll == null)
                 return false;
             if (coll.isActive == false)
                 return false;
             coll.isActive = false;
+            _collaboratorRepository.Update(coll);
             return true;
         }
-        public Boolean Reactive(string cpf)
+        public Boolean Reactivate(string cpf)
         {
-            var coll = _context.Collaborator.FirstOrDefault(x => x.CPF == cpf);
+            var coll = _collaboratorRepository.SearchCpf(cpf);
             if (coll == null)
                 return false;
             if (coll.isActive == true)
                 return false;
             coll.isActive = true;
+            _collaboratorRepository.Update(coll);
             return true;
         }
     }

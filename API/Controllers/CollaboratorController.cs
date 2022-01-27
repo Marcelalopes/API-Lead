@@ -3,6 +3,7 @@ using System.Linq;
 using API.Context;
 using API.Models;
 using API.Services;
+using API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -11,10 +12,10 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class CollaboratorController : ControllerBase
     {
-        private readonly CollaboratorService _collaboratorService;
-        public CollaboratorController(AppDbContext context)
+        private readonly ICollaboratorService _collaboratorService;
+        public CollaboratorController(ICollaboratorService collaboratorService)
         {
-            _collaboratorService = new CollaboratorService(context);
+            _collaboratorService = collaboratorService;
         }
 
         [HttpGet("getAllActive")]
@@ -68,7 +69,7 @@ namespace API.Controllers
         [HttpPut("reactivate/{cpf}:string")]
         public ActionResult ReactivateCollaborator(string cpf)
         {
-            var result = _collaboratorService.Reactive(cpf);
+            var result = _collaboratorService.Reactivate(cpf);
             return result ? new OkResult() : new NotFoundResult();
         }
     }

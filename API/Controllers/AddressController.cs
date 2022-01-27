@@ -4,6 +4,7 @@ using System.Linq;
 using API.Context;
 using API.Models;
 using API.Services;
+using API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -12,10 +13,10 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class AddressController : ControllerBase
     {
-        private readonly AddressService _addressService;
-        public AddressController(AppDbContext context)
+        private readonly IAddressService _addressService;
+        public AddressController(IAddressService addressService)
         {
-            _addressService = new AddressService(context);
+            _addressService = addressService;
         }
 
         [HttpGet("getAll")]

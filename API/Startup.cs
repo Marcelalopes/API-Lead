@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Context;
+using API.Repository;
+using API.Repository.Interfaces;
+using API.Services;
+using API.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,18 +26,23 @@ namespace api
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("conexaoMySQL");
-            services.AddDbContextPool<AppDbContext>(options => 
+            services.AddDbContextPool<AppDbContext>(options =>
                 options.UseMySql(
                     connection, ServerVersion.AutoDetect(connection)
                 )
             );
+
+            services.AddScoped<ICollaboratorService, CollaboratorService>();
+            services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
+
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

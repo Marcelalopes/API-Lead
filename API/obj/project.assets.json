@@ -2,6 +2,33 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "AutoMapper/10.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Reflection.Emit": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.dll": {}
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/8.1.1": {
+        "type": "package",
+        "dependencies": {
+          "AutoMapper": "[10.1.1, 11.0.0)",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Options": "3.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -9,6 +36,15 @@
         },
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {}
+        }
+      },
+      "JetBrains.Annotations/2021.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {}
         }
       },
       "Microsoft.CSharp/4.7.0": {
@@ -329,10 +365,69 @@
         "runtime": {
           "lib/net5.0/System.Diagnostics.DiagnosticSource.dll": {}
         }
+      },
+      "System.Linq.Dynamic.Core/1.2.15": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/System.Linq.Dynamic.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/System.Linq.Dynamic.Core.dll": {}
+        }
+      },
+      "System.Reflection.Emit/4.7.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
+        }
+      },
+      "X.PagedList/8.1.0": {
+        "type": "package",
+        "dependencies": {
+          "JetBrains.Annotations": "2021.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/X.PagedList.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/X.PagedList.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "AutoMapper/10.1.1": {
+      "sha512": "uMgbqOdu9ZG5cIOty0C85hzzayBH2i9BthnS5FlMqKtMSHDv4ts81a2jS1VFaDBVhlBeIqJ/kQKjQY95BZde9w==",
+      "type": "package",
+      "path": "automapper/10.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automapper.10.1.1.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net461/AutoMapper.dll",
+        "lib/net461/AutoMapper.xml",
+        "lib/netstandard2.0/AutoMapper.dll",
+        "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/8.1.1": {
+      "sha512": "xSWoVzOipuDU4PeZcUfaZQ+xqXU8QmGv5jrdlxt3MYm9xaOmrefqcfzGQ3SQ+D+8wfBa/ZwSuL0qKOVj080inA==",
+      "type": "package",
+      "path": "automapper.extensions.microsoft.dependencyinjection/8.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
+        "automapper.extensions.microsoft.dependencyinjection.nuspec",
+        "icon.png",
+        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
     "Humanizer.Core/2.8.26": {
       "sha512": "OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
       "type": "package",
@@ -347,6 +442,28 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "JetBrains.Annotations/2021.1.0": {
+      "sha512": "n9JSw5Z+F+6gp9vSv4aLH6p/bx3GAYA6FZVq1wJq/TJySv/kPgFKLGFeS7A8Xa5X4/GWorh5gd43yjamUgnBNA==",
+      "type": "package",
+      "path": "jetbrains.annotations/2021.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "jetbrains.annotations.2021.1.0.nupkg.sha512",
+        "jetbrains.annotations.nuspec",
+        "lib/net20/JetBrains.Annotations.dll",
+        "lib/net20/JetBrains.Annotations.xml",
+        "lib/netstandard1.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard1.0/JetBrains.Annotations.dll",
+        "lib/netstandard1.0/JetBrains.Annotations.xml",
+        "lib/netstandard2.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard2.0/JetBrains.Annotations.dll",
+        "lib/netstandard2.0/JetBrains.Annotations.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml"
       ]
     },
     "Microsoft.CSharp/4.7.0": {
@@ -998,15 +1115,129 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "System.Linq.Dynamic.Core/1.2.15": {
+      "sha512": "46PeyhpG36FWBFShRlmumMWGqdUd8SA+NMd/DwnGzkHY3SzFPAILndgViRzcUtsHhqGBrMOI0aqhpm0u9JAitg==",
+      "type": "package",
+      "path": "system.linq.dynamic.core/1.2.15",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/System.Linq.Dynamic.Core.dll",
+        "lib/net35/System.Linq.Dynamic.Core.pdb",
+        "lib/net35/System.Linq.Dynamic.Core.xml",
+        "lib/net40/System.Linq.Dynamic.Core.dll",
+        "lib/net40/System.Linq.Dynamic.Core.pdb",
+        "lib/net40/System.Linq.Dynamic.Core.xml",
+        "lib/net45/System.Linq.Dynamic.Core.dll",
+        "lib/net45/System.Linq.Dynamic.Core.pdb",
+        "lib/net45/System.Linq.Dynamic.Core.xml",
+        "lib/net46/System.Linq.Dynamic.Core.dll",
+        "lib/net46/System.Linq.Dynamic.Core.pdb",
+        "lib/net46/System.Linq.Dynamic.Core.xml",
+        "lib/net5.0/System.Linq.Dynamic.Core.dll",
+        "lib/net5.0/System.Linq.Dynamic.Core.pdb",
+        "lib/net5.0/System.Linq.Dynamic.Core.xml",
+        "lib/net6.0/System.Linq.Dynamic.Core.dll",
+        "lib/net6.0/System.Linq.Dynamic.Core.pdb",
+        "lib/net6.0/System.Linq.Dynamic.Core.xml",
+        "lib/netcoreapp2.1/System.Linq.Dynamic.Core.dll",
+        "lib/netcoreapp2.1/System.Linq.Dynamic.Core.pdb",
+        "lib/netcoreapp2.1/System.Linq.Dynamic.Core.xml",
+        "lib/netstandard1.3/System.Linq.Dynamic.Core.dll",
+        "lib/netstandard1.3/System.Linq.Dynamic.Core.pdb",
+        "lib/netstandard1.3/System.Linq.Dynamic.Core.xml",
+        "lib/netstandard2.0/System.Linq.Dynamic.Core.dll",
+        "lib/netstandard2.0/System.Linq.Dynamic.Core.pdb",
+        "lib/netstandard2.0/System.Linq.Dynamic.Core.xml",
+        "lib/netstandard2.1/System.Linq.Dynamic.Core.dll",
+        "lib/netstandard2.1/System.Linq.Dynamic.Core.pdb",
+        "lib/netstandard2.1/System.Linq.Dynamic.Core.xml",
+        "lib/uap10.0.10240/System.Linq.Dynamic.Core.dll",
+        "lib/uap10.0.10240/System.Linq.Dynamic.Core.pdb",
+        "lib/uap10.0.10240/System.Linq.Dynamic.Core.pri",
+        "lib/uap10.0.10240/System.Linq.Dynamic.Core.xml",
+        "system.linq.dynamic.core.1.2.15.nupkg.sha512",
+        "system.linq.dynamic.core.nuspec"
+      ]
+    },
+    "System.Reflection.Emit/4.7.0": {
+      "sha512": "VR4kk8XLKebQ4MZuKuIni/7oh+QGFmZW3qORd1GvBq/8026OpW501SzT/oypwiQl4TvT8ErnReh/NzY9u+C6wQ==",
+      "type": "package",
+      "path": "system.reflection.emit/4.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/System.Reflection.Emit.dll",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.1/System.Reflection.Emit.dll",
+        "lib/netstandard1.1/System.Reflection.Emit.xml",
+        "lib/netstandard1.3/System.Reflection.Emit.dll",
+        "lib/netstandard2.0/System.Reflection.Emit.dll",
+        "lib/netstandard2.0/System.Reflection.Emit.xml",
+        "lib/netstandard2.1/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.1/System.Reflection.Emit.dll",
+        "ref/netstandard1.1/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/de/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/es/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/fr/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/it/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/ja/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/ko/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/ru/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/zh-hans/System.Reflection.Emit.xml",
+        "ref/netstandard1.1/zh-hant/System.Reflection.Emit.xml",
+        "ref/netstandard2.0/System.Reflection.Emit.dll",
+        "ref/netstandard2.0/System.Reflection.Emit.xml",
+        "ref/netstandard2.1/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/aot/lib/netcore50/System.Reflection.Emit.dll",
+        "runtimes/aot/lib/netcore50/System.Reflection.Emit.xml",
+        "system.reflection.emit.4.7.0.nupkg.sha512",
+        "system.reflection.emit.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "X.PagedList/8.1.0": {
+      "sha512": "xBZNtE+WU6FEKEapLvIdTFn4h3Ue03dsBE1LfnhzsLFIrop5bX6f7UuXnsenG/QK1OPHYknkC0a0vPBAMo0bXQ==",
+      "type": "package",
+      "path": "x.pagedlist/8.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/X.PagedList.dll",
+        "x.pagedlist.8.1.0.nupkg.sha512",
+        "x.pagedlist.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.1.1",
       "Microsoft.EntityFrameworkCore >= 5.0.12",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.12",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.12",
       "Pomelo.EntityFrameworkCore.MySql >= 5.0.3",
-      "Swashbuckle.AspNetCore >= 5.6.3"
+      "Swashbuckle.AspNetCore >= 5.6.3",
+      "System.Linq.Dynamic.Core >= 1.2.15",
+      "X.PagedList >= 8.1.0"
     ]
   },
   "packageFolders": {
@@ -1048,6 +1279,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+            "target": "Package",
+            "version": "[8.1.1, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[5.0.12, )"
@@ -1071,6 +1306,14 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[5.6.3, )"
+          },
+          "System.Linq.Dynamic.Core": {
+            "target": "Package",
+            "version": "[1.2.15, )"
+          },
+          "X.PagedList": {
+            "target": "Package",
+            "version": "[8.1.0, )"
           }
         },
         "imports": [

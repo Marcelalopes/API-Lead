@@ -3,55 +3,55 @@ using System.Collections.Generic;
 using System.Linq;
 using API.Context;
 using API.Models;
+using API.Repository.Interfaces;
+using API.Services.Interfaces;
 
 namespace API.Services
 {
-    public class AddressService
+    public class AddressService: IAddressService
     {
-        private readonly AppDbContext _context;
-
-        public AddressService(AppDbContext context)
+        private readonly IAddressRepository _addressRepository;
+        public AddressService(IAddressRepository addressRepository)
         {
-            _context = context;
+            _addressRepository = addressRepository;
         }
+
         public IEnumerable<Address> GetAll()
         {
-            return _context.Address.ToList();
+            return _addressRepository.GetAll().ToList();
         }
         public Address SearchId(Guid id)
         {
-            var address = _context.Address.First(x => x.Id == id);
-            return address;
+            return _addressRepository.Search(id);
         }
         public Address Add(Address address)
         {
-            _context.Address.Add(address);
-            _context.SaveChanges();
-            return address;
+            return _addressRepository.Add(address);
         }
         public void Update(Address address)
         {
-            _context.Address.Update(address);
-            _context.SaveChanges();
+            _addressRepository.Update(address);
         }
         public Boolean Disable(Guid id)
         {
-            var address = _context.Address.FirstOrDefault(x => x.Id == id);
-            if(address == null)
+            var address = _addressRepository.Search(id);
+            if (address == null)
                 return false;
-            if(address.isActive == false)
+            if (address.isActive == false)
                 return false;
             address.isActive = false;
+            _addressRepository.Update(address);
             return true;
         }
         public Boolean Reactivate(Guid id)
         {
-            var address = _context.Address.FirstOrDefault(x => x.Id == id);
-            if(address == null)
+            var address = _addressRepository.Search(id);
+            if (address == null)
                 return false;
-            if(address.isActive == true)
+            if (address.isActive == true)
                 return false;
             address.isActive = true;
+            _addressRepository.Update(address);
             return true;
         }
     }

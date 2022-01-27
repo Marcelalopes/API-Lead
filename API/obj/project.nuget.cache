@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "A/HXToKGzTNeUA0Mv/RkUf0BykOlfex7MjZk4Tpl/ZKv4raIy63UAirynyEN9mrOOW46aB2EwYYmj+RrKPuaWw==",
+  "dgSpecHash": "hEgafTmKEXH0qdPROHVcVz6DlywC2lh+7W+7D8j+M3sN/6z2jP59rIeZP0vD+u7oGm6TiKD1laeSvaaf3KZrWg==",
   "success": true,
-  "projectFilePath": "E:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\api\\api.csproj",
+  "projectFilePath": "e:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\MARCELA\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\MARCELA\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\MARCELA\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\MARCELA\\.nuget\\packages\\jetbrains.annotations\\2021.1.0\\jetbrains.annotations.2021.1.0.nupkg.sha512",
     "C:\\Users\\MARCELA\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\MARCELA\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.12\\microsoft.entityframeworkcore.5.0.12.nupkg.sha512",
     "C:\\Users\\MARCELA\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.12\\microsoft.entityframeworkcore.abstractions.5.0.12.nupkg.sha512",
@@ -31,7 +34,10 @@
     "C:\\Users\\MARCELA\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
     "C:\\Users\\MARCELA\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\MARCELA\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
-    "C:\\Users\\MARCELA\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512"
+    "C:\\Users\\MARCELA\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
+    "C:\\Users\\MARCELA\\.nuget\\packages\\system.linq.dynamic.core\\1.2.15\\system.linq.dynamic.core.1.2.15.nupkg.sha512",
+    "C:\\Users\\MARCELA\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
+    "C:\\Users\\MARCELA\\.nuget\\packages\\x.pagedlist\\8.1.0\\x.pagedlist.8.1.0.nupkg.sha512"
   ],
   "logs": []
 }
