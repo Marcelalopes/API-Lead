@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9OAgBaLlPOROZkW/6q/oWvlwwLhIsdHcVrMEdbaoY5BOIuTm+HXDmUa+D3ooCApc8LMTd3w4lRtnicrkkHVb+w==",
+  "dgSpecHash": "hEgafTmKEXH0qdPROHVcVz6DlywC2lh+7W+7D8j+M3sN/6z2jP59rIeZP0vD+u7oGm6TiKD1laeSvaaf3KZrWg==",
   "success": true,
-  "projectFilePath": "E:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj",
+  "projectFilePath": "e:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MARCELA\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\MARCELA\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

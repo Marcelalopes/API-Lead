@@ -1,0 +1,334 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API-Dell</name>
+    </assembly>
+    <members>
+        <member name="M:API_Dell.Controllers.AddressController.GetAddress(System.Int32,System.Int32,System.String,API_Dell.Enum.OrderByTypeEnum,API_Dell.Enum.OrderByColumnAddressEnum)">
+            <summary> Listar Endereço </summary>  
+            <returns> Esse endpoint deve ser usado para listar todos endereços </returns>
+            <response code="200">Quando estiver OK</response>
+            <response code="400">Quando tiver com erro</response>
+        </member>
+        <member name="M:API_Dell.Controllers.AddressController.SearchAddress(System.Guid)">
+            <summary> Listar Address por Id </summary>  
+            <returns> Esse endpoint deve ser usado para listar um address pelo seu Id </returns>
+            <param name="id"> Esse id deve ser do address que deseja listar</param>
+            <response code="200">Quando estiver OK</response>
+            <response code="400">Quando tiver com erro</response>
+        </member>
+        <member name="M:API_Dell.Controllers.AddressController.AddAddress(API_Dell.DTO.AddressNewDto)">
+             <summary> Criar Endereço </summary>
+             <returns> Esse endpoint deve ser usado para criar um novo endereço </returns>
+             <remarks>
+                 Exemplo RequestBody:
+            
+                     {
+                         "street": "Rua 7 de Setembro",
+                         "number": 12,
+                         "district": "Centro",
+                         "city": "Pedro II",
+                         "state":"PI"
+                      }
+            
+             </remarks>
+             <response code="200"> Quando estiver OK </response>
+             <response code="404"> Quando estiver com ERROR </response>
+        </member>
+        <member name="M:API_Dell.Controllers.AddressController.UpdateAddress(API_Dell.DTO.AddressUpdateDto,System.Guid)">
+             <summary> Atualizar um endereço </summary>
+             <returns> Esse endpoint deve ser usado quando for preciso atualizar um endereço </returns>
+             <param name="id"> Esse Id deve ser o do Endereço que deseja atualizar </param>
+             <param name="address"> Esse Address deve ser o Endereço que deseja atualizar</param>
+             <remarks>
+                 Exemplo RequestBody:
+            
+                     {
+                         "id":"3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                         "street": "Rua 7 de Setembro",
+                         "number": 12,
+                         "district": "Centro",
+                         "state": "PI",
+                         "city": "Pedro II"
+                      }
+            
+             </remarks>
+             <response code="200"> Quando estiver OK </response>
+             <response code="204"> Quando não encontrar o Endereço </response>
+             <response code="404"> Quando estiver com ERROR </response>
+        </member>
+        <member name="M:API_Dell.Controllers.AddressController.DisableAddress(System.Guid)">
+            <summary> Desativar um endereço </summary>
+            <returns> Esse endpoint deve ser usado quando for preciso desativar um endereço pelo seu Id </returns>
+            <param name="id"> Esse Id deve ser o do endereço que deseja desativar </param>
+            <response code="200"> Quando estiver OK </response>
+            <response code="204"> Quando estiver OK </response>
+            <response code="404"> Quando estiver com ERROR </response>
+        </member>
+        <member name="M:API_Dell.Controllers.AddressController.Reactivate(System.Guid)">
+            <summary> Reativar um endereço </summary>
+            <returns> Esse endpoint deve ser usado quando for preciso reativar um endereço pelo seu Id </returns>
+            <param name="id"> Esse Id deve ser o do endereço que deseja reativar </param>
+            <response code="200"> Quando estiver OK </response>
+            <response code="204"> Quando estiver OK </response>
+            <response code="404"> Quando estiver com ERROR </response>
+        </member>
+        <member name="M:API_Dell.Controllers.CollaboratorController.GetCollaboratorActive(System.Int32,System.Int32,System.String,API_Dell.Enum.OrderByTypeEnum,API_Dell.Enum.OrderByColumnCollaboratorEnum)">
+            <summary> Listar Colaboradores Ativos </summary>  
+            <returns> Esse endpoint deve ser usado para listar todos os colaboradores ativos </returns>
+            <response code="200">Quando estiver OK</response>
+            <response code="400">Quando tiver com erro</response>
+        </member>
+        <member name="M:API_Dell.Controllers.CollaboratorController.GetCollaboratorDesables(System.Int32,System.Int32,System.String,API_Dell.Enum.OrderByTypeEnum,API_Dell.Enum.OrderByColumnCollaboratorEnum)">
+            <summary> Listar Colaboradores Desativados </summary>  
+            <returns> Esse endpoint deve ser usado para listar todos os colaboradores desativados </returns>
+            <response code="200">Quando estiver OK</response>
+            <response code="400">Quando tiver com erro</response>
+        </member>
+        <member name="M:API_Dell.Controllers.CollaboratorController.GetCpfCollaborator(System.String)">
+            <summary> Listar colaborador por CPF </summary>  
+            <returns> Esse endpoint deve ser usado para listar um colaborador pelo seu cpf </returns>
+            <param name="cpf"> Esse cpf deve ser do colaborador que deseja listar</param>
+            <response code="200">Quando estiver OK</response>
+            <response code="404">Quando tiver com erro</response>
+        </member>
+        <member name="M:API_Dell.Controllers.CollaboratorController.GetNameCollaborator(System.String)">
+            <summary> Listar colaborador por nome </summary>  
+            <returns> Esse endpoint deve ser usado para listar um colaborador pelo seu nome </returns>
+            <param name="name"> nome completo do colaborador que deseja listar</param>
+            <response code="200">Quando estiver OK</response>
+            <response code="404">Quando tiver com erro</response>
+        </member>
+        <member name="M:API_Dell.Controllers.CollaboratorController.AddCollaborator(API_Dell.DTO.CollaboratorDto)">
+             <summary>Cadastrar Colaboradores</summary>
+             <returns>Este endpoint deve ser usando para cadastrar colaboradores</returns>
+             <remarks>
+                 Exemplo RequestBody:
+            
+                          {
+                             "cpf":"06568386290",
+                             "name":"Marcela dos Santos Lopes",
+                             "birthDate":"2021-12-28T13:55:50.061Z",
+                             "phone":"86987435689",
+                             "gender":"feminino",
+                             "isActive":true,
+                             "addressId":"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                          }
+            
+             </remarks>
+             <response code="200">Quando estiver OK</response>
+             <response code="400">Quando tiver com erro</response>
+        </member>
+        <member name="M:API_Dell.Controllers.CollaboratorController.UpdateCollaborator(API_Dell.DTO.CollaboratorUpdateDto,System.String)">
+             <summary>Atualizar Colaboradores</summary>
+             <returns>Este endpoint deve ser usando para atualizar colaboradores</returns>
+             <param name="cpf"> Este cpf deve ser do colaboraddor que deseja atualizar </param>
+             <param name="collaborator"> Este collaborator deve ser o colaborador que deseja atualizar </param>
+             <remarks>
+                 Exemplo RequestBody:
+            
+                          {
+                             "cpf":"06568386290",
+                             "name":"Marcela dos Santos Lopes",
+                             "birthDate":"2021-12-28T13:55:50.061Z",
+                             "phone":"86987435689",
+                             "gender":"feminino",
+                             "isActive":true,
+                             "addressId":"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                          }
+            
+             </remarks>
+             <response code="204">Quando estiver OK</response>
+             <response code="404">Colaborador não existe</response>
+        </member>
+        <member name="M:API_Dell.Controllers.CollaboratorController.Disable(System.String)">
+            <summary> Desativar um colaborador </summary>
+            <returns> Esse endpoint deve ser usado quando for preciso desativar um collaborador </returns>
+            <param name="cpf"> Esse cpf deve ser o do colaborador que deseja desativar </param>
+            <response code="204"> Quando estiver OK </response>
+            <response code="404"> Quando estiver com ERROR </response>
+        </member>
+        <member name="M:API_Dell.Controllers.CollaboratorController.Reactivate(System.String)">
+            <summary> Reativar um colaborador </summary>
+            <returns> Esse endpoint deve ser usado quando for preciso reativar um collaborador </returns>
+            <param name="cpf"> Esse cpf deve ser o do colaborador que deseja reativar </param>
+            <response code="204"> Quando estiver OK </response>
+            <response code="404"> Quando estiver com ERROR </response>
+        </member>
+        <member name="P:API_Dell.DTO.AddressNewDto.Street">
+            <summary> string: Street Name </summary>
+            <example> Rua Perfume de Gardênia </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressNewDto.Number">
+            <summary> int: House Number </summary>
+            <example> 25 </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressNewDto.District">
+            <summary> string: District Name </summary>
+            <example> Villa das Flores </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressNewDto.City">
+            <summary> string: City Name </summary>
+            <example> Pedro II </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressNewDto.State">
+            <summary>string: State Name </summary>
+            <example> Piauí </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressNewDto.isActive">
+            <summary> Boolen: Address is active</summary>
+        </member>
+        <member name="P:API_Dell.DTO.AddressUpdateDto.Street">
+            <summary> string: Street Name </summary>
+            <example> Rua Perfume de Gardênia </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressUpdateDto.Number">
+            <summary> int: House Number </summary>
+            <example> 25 </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressUpdateDto.District">
+            <summary> string: District Name </summary>
+            <example> Villa das Flores </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressUpdateDto.City">
+            <summary> string: City Name </summary>
+            <example> Pedro II </example>
+        </member>
+        <member name="P:API_Dell.DTO.AddressUpdateDto.State">
+            <summary>string: State Name </summary>
+            <example> Piauí </example>
+        </member>
+        <member name="P:API_Dell.DTO.AdressesDto.Id">
+            <summary> Guid: Address Id </summary>
+        </member>
+        <member name="P:API_Dell.DTO.AdressesDto.Street">
+            <summary> string: Street Name </summary>
+            <example> Rua Perfume de Gardênia </example>
+        </member>
+        <member name="P:API_Dell.DTO.AdressesDto.Number">
+            <summary> int: House Number </summary>
+            <example> 25 </example>
+        </member>
+        <member name="P:API_Dell.DTO.AdressesDto.District">
+            <summary> string: District Name </summary>
+            <example> Villa das Flores </example>
+        </member>
+        <member name="P:API_Dell.DTO.AdressesDto.City">
+            <summary> string: City Name </summary>
+            <example> Pedro II </example>
+        </member>
+        <member name="P:API_Dell.DTO.AdressesDto.State">
+            <summary>string: State Name </summary>
+            <example> Piauí </example>
+        </member>
+        <member name="P:API_Dell.DTO.AdressesDto.isActive">
+            <summary> Boolen: Address is active</summary>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorDto.CPF">
+            <summary> string: Collaborator CPF </summary>
+            <example> 06468786380 </example>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorDto.Name">
+            <summary> string: Collaborator Name </summary>
+            <example> Marcela dos Santos Lopes </example>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorDto.BirthDate">
+            <summary> DateTime: Collaborator Birth Date </summary>
+            <example> 2002-07-09 </example>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorDto.Gender">
+            <summary> string: Collaborator Gender </summary>
+            <example> Female </example>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorDto.Phone">
+            <summary> string: Collaborator Phone </summary>
+            <example> 86981425287 </example>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorDto.isActive">
+            <summary> Boolean: Collaborator Active </summary>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorDto.AddressId">
+            <summary> Guid: Collaborator Address Id </summary>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorUpdateDto.Name">
+            <summary> string: Collaborator Name </summary>
+            <example> Marcela dos Santos Lopes </example>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorUpdateDto.Gender">
+            <summary> string: Collaborator Gender </summary>
+            <example> Female </example>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorUpdateDto.Phone">
+            <summary> string: Collaborator Phone </summary>
+            <example> 86981425287 </example>
+        </member>
+        <member name="P:API_Dell.DTO.CollaboratorUpdateDto.AddressId">
+            <summary> Guid: Collaborator Address Id </summary>
+        </member>
+        <member name="T:API_Dell.Models.Address">
+            <summary> Address Object </summary>
+        </member>
+        <member name="P:API_Dell.Models.Address.Id">
+            <summary> Guid : Id Primary key </summary>
+        </member>
+        <member name="P:API_Dell.Models.Address.Street">
+            <summary> string: Street Name </summary>
+            <example> Rua Perfume de Gardênia </example>
+        </member>
+        <member name="P:API_Dell.Models.Address.Number">
+            <summary> int: House Number </summary>
+            <example> 25 </example>
+        </member>
+        <member name="P:API_Dell.Models.Address.District">
+            <summary> string: District Name </summary>
+            <example> Villa das Flores </example>
+        </member>
+        <member name="P:API_Dell.Models.Address.City">
+            <summary> string: City Name </summary>
+            <example> Pedro II </example>
+        </member>
+        <member name="P:API_Dell.Models.Address.State">
+            <summary>string: State Name </summary>
+            <example> Piauí </example>
+        </member>
+        <member name="P:API_Dell.Models.Address.isActive">
+            <summary> Boolen: Address is active</summary>
+        </member>
+        <member name="P:API_Dell.Models.Address.Collaborator">
+            <summary>List: List of collaborators who live at this address </summary>
+        </member>
+        <member name="T:API_Dell.Models.Collaborator">
+            <summary> Collaborator Object </summary>
+        </member>
+        <member name="P:API_Dell.Models.Collaborator.CPF">
+            <summary> string: Collaborator CPF </summary>
+            <example> 06468786380 </example>
+        </member>
+        <member name="P:API_Dell.Models.Collaborator.Name">
+            <summary> string: Collaborator Name </summary>
+            <example> Marcela dos Santos Lopes </example>
+        </member>
+        <member name="P:API_Dell.Models.Collaborator.BirthDate">
+            <summary> DateTime: Collaborator Birth Date </summary>
+            <example> 2002-07-09 </example>
+        </member>
+        <member name="P:API_Dell.Models.Collaborator.Gender">
+            <summary> string: Collaborator Gender </summary>
+            <example> Female </example>
+        </member>
+        <member name="P:API_Dell.Models.Collaborator.Phone">
+            <summary> string: Collaborator Phone </summary>
+            <example> 86981425287 </example>
+        </member>
+        <member name="P:API_Dell.Models.Collaborator.isActive">
+            <summary> Boolean: Collaborator Active </summary>
+            <example> true </example>
+        </member>
+        <member name="P:API_Dell.Models.Collaborator.Address">
+            <summary> Object Address </summary>
+        </member>
+        <member name="P:API_Dell.Models.Collaborator.AddressId">
+            <summary> Guid: Collaborator Address Id </summary>
+        </member>
+    </members>
+</doc>

@@ -74,9 +74,16 @@ namespace API.Controllers
         [HttpGet("getByCpf/{cpf}:string")]
         public async Task<ActionResult<CollaboratorDto>> GetCpfCollaborator(string cpf)
         {
-            try{
-            return new ObjectResult(await _collaboratorService.GetByCpf(cpf));
-            }catch (Exception e)
+            try
+            {
+                var result = await _collaboratorService.GetByCpf(cpf);
+
+                if (result == null)
+                    return NotFound();
+                    
+                return Ok(result);
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
@@ -91,9 +98,16 @@ namespace API.Controllers
         [HttpGet("getByName/{name}:string")]
         public async Task<ActionResult<CollaboratorDto>> GetNameCollaborator(string name)
         {
-            try{
-                return new ObjectResult(await _collaboratorService.GetByName(name));
-            }catch (Exception e)
+            try
+            {
+                var result = await _collaboratorService.GetByName(name);
+
+                if (result == null)
+                    return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
@@ -121,17 +135,19 @@ namespace API.Controllers
         [HttpPost("add")]
         public async Task<ActionResult<CollaboratorNewDto>> AddCollaborator([FromBody] CollaboratorNewDto collaborator)
         {
-           try{
+            try
+            {
                 var result = await _collaboratorService.Add(collaborator);
                 return new CreatedResult("", result);
-            }catch (Exception e)
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
                     message = $"{e.Message} {e.InnerException.Message}";
                 return BadRequest(message);
             }
-            
+
         }
 
         /// <summary> Atualizar collaborador </summary>
@@ -152,16 +168,19 @@ namespace API.Controllers
         [HttpPut("update/{cpf}:string")]
         public async Task<ActionResult> UpdateCollaborator([FromBody] CollaboratorUpdateDto collaborator, string cpf)
         {
-            try{
-            await _collaboratorService.Update(collaborator, cpf);
-            return new OkObjectResult(collaborator);
-            }catch (Exception e)
+            try
+            {
+                if (!await _collaboratorService.Update(collaborator, cpf))
+                    return NotFound();
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
                     message = $"{e.Message} {e.InnerException.Message}";
                 return BadRequest(message);
             }
+            return NoContent();
         }
 
         /// <summary> Desativar um colaborador </summary>
@@ -171,10 +190,15 @@ namespace API.Controllers
         [HttpDelete("disable/{cpf}:string")]
         public async Task<ActionResult> DisableCollaborator(string cpf)
         {
-            try{
-            var result = await _collaboratorService.Disable(cpf);
-            return result ? new OkResult() : new NotFoundResult();
-            }catch (Exception e)
+            try
+            {
+                if (!await _collaboratorService.Disable(cpf))
+                {
+                    return NotFound();
+                }
+                return NoContent();
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)
@@ -190,10 +214,15 @@ namespace API.Controllers
         [HttpPut("reactivate/{cpf}:string")]
         public async Task<ActionResult> ReactivateCollaborator(string cpf)
         {
-            try{
-            var result = await _collaboratorService.Reactivate(cpf);
-            return result ? new OkResult() : new NotFoundResult();
-            }catch (Exception e)
+            try
+            {
+                if (!await _collaboratorService.Reactivate(cpf))
+                {
+                    return NotFound();
+                }
+                return NoContent();
+            }
+            catch (Exception e)
             {
                 string message = e.Message;
                 if (e.InnerException != null)

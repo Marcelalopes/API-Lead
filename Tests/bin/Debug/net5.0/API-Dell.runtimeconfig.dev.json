@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\MARCELA\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\MARCELA\\.nuget\\packages"
+    ]
+  }
+}

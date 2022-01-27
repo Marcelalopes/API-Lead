@@ -4,7 +4,7 @@
         <name>api</name>
     </assembly>
     <members>
-        <member name="M:API.Controllers.AddressController.GetAllAddress">
+        <member name="M:API.Controllers.AddressController.GetAllAddress(System.Int32,System.Int32,System.String,API.Enum.OrderByTypeEnum,API.Enum.OrderByColumnAddressEnum)">
             <summary> Listar todos os endereços </summary>
             <response code="200"> Sucesso </response>
             <response code="400"> ERROR: Parâmetro inválido </response>
@@ -61,12 +61,12 @@
             <response code="204"> Sucesso: Sem conteúdo </response>
             <response code="404"> ERROR: Endereço não encontrado </response>
         </member>
-        <member name="M:API.Controllers.CollaboratorController.GetAllActive">
+        <member name="M:API.Controllers.CollaboratorController.GetAllActive(System.Int32,System.Int32,System.String,API.Enum.OrderByTypeEnum,API.Enum.OrderByColumnCollaboratorEnum)">
             <summary> Listar todos os colaboradores ativos </summary>
             <response code="200"> Sucesso </response>
             <response code="400"> ERROR: Parâmetro inválido </response>
         </member>
-        <member name="M:API.Controllers.CollaboratorController.GetAllDisable">
+        <member name="M:API.Controllers.CollaboratorController.GetAllDisable(System.Int32,System.Int32,System.String,API.Enum.OrderByTypeEnum,API.Enum.OrderByColumnCollaboratorEnum)">
             <summary> Listar todos os colaboradores desativados </summary>
             <response code="200"> Sucesso </response>
             <response code="400"> ERROR: Parâmetro inválido </response>
@@ -128,6 +128,64 @@
             <response code="204"> Sucesso: Sem conteúdo </response>
             <response code="404"> ERROR: Colaborador não encontrado </response>
         </member>
+        <member name="P:API.Dtos.Address.AddressNewDto.Street">
+            <summary> string: Nome da rua </summary>
+            <example> Rua Projetada 1 </example>
+        </member>
+        <member name="P:API.Dtos.Address.AddressNewDto.Number">
+            <summary> string: Numero da rua </summary>
+            <example> 5B </example>
+        </member>
+        <member name="P:API.Dtos.Address.AddressNewDto.District">
+            <summary> string: Nome do bairro </summary>
+            <example> Villa </example>
+        </member>
+        <member name="P:API.Dtos.Address.AddressNewDto.City">
+            <summary> string: Nome da cidade </summary>
+            <example> Pedro II </example>
+        </member>
+        <member name="P:API.Dtos.Address.AddressNewDto.State">
+            <summary> string: Nome do estado </summary>
+            <example> PI </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorNewDto.CPF">
+            <summary> string: Primary Key </summary>
+            <example> 06468786380 </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorNewDto.Name">
+            <summary> string: Nome do colaborador </summary>
+            <example> Marcela dos Santos Lopes </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorNewDto.BirthDate">
+            <summary> DateTime: Data de nascimento do colaborador </summary>
+            <example> 2002-07-09T00:00:00.793Z </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorNewDto.Gender">
+            <summary> string: Sexo do colaborador </summary>
+            <example> F </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorNewDto.Phone">
+            <summary> string: Número do colaborador </summary>
+            <example> 86981425287 </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorNewDto.AddressId">
+            <summary> Guid: Id do endereço do colaborador </summary>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorUpdateDto.Name">
+            <summary> string: Nome do colaborador </summary>
+            <example> Marcela dos Santos Lopes </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorUpdateDto.Gender">
+            <summary> string: Sexo do colaborador </summary>
+            <example> F </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorUpdateDto.Phone">
+            <summary> string: Número do colaborador </summary>
+            <example> 86981425287 </example>
+        </member>
+        <member name="P:API.Dtos.Collaborator.CollaboratorUpdateDto.AddressId">
+            <summary> Guid: Id do endereço do colaborador </summary>
+        </member>
         <member name="T:API.Models.Address">
             <summary> Objeto que representa os dados de um endereço </summary>
         </member>
@@ -174,6 +232,25 @@
         </member>
         <member name="P:API.Models.Collaborator.BirthDate">
             <summary> DateTime: Data de nascimento do colaborador </summary>
+            <example> 2002-07-09T00:00:00.793Z </example>
+        </member>
+        <member name="P:API.Models.Collaborator.Gender">
+            <summary> string: Sexo do colaborador </summary>
+            <example> F </example>
+        </member>
+        <member name="P:API.Models.Collaborator.Phone">
+            <summary> string: Número do colaborador </summary>
+            <example> 86981425287 </example>
+        </member>
+        <member name="P:API.Models.Collaborator.isActive">
+            <summary> Boolean: variável de desativação do colaborador </summary>
+            <example> true </example>
+        </member>
+        <member name="P:API.Models.Collaborator.Address">
+            <summary> Address: Objeto de endereço </summary>
+        </member>
+        <member name="P:API.Models.Collaborator.AddressId">
+            <summary> Guid: Id do endereço do colaborador </summary>
         </member>
     </members>
 </doc>

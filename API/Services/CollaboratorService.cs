@@ -89,6 +89,7 @@ namespace API.Services
         public async Task<Boolean> Update(CollaboratorUpdateDto updateCollaborator, string cpf)
         {
             var result = await _collaboratorRepository.Search(x => x.CPF == cpf);
+
             if (result == null)
                 return false;
 
@@ -96,31 +97,36 @@ namespace API.Services
             result.Gender = updateCollaborator.Gender ?? result.Gender;
             result.Phone = updateCollaborator.Phone ?? result.Phone;
             result.AddressId = updateCollaborator.AddressId ?? result.AddressId;
-
-            await _collaboratorRepository.Update(result);
-            return true;
+                        
+            return await _collaboratorRepository.Update(result);
         }
         public async Task<Boolean> Disable(string cpf)
         {
             var coll = await _collaboratorRepository.Search(x => x.CPF == cpf);
+
             if (coll == null)
                 return false;
+
             if (coll.isActive == false)
                 return false;
+
             coll.isActive = false;
-            await _collaboratorRepository.Update(coll);
-            return true;
+           
+            return  await _collaboratorRepository.Update(coll);
         }
         public async Task<Boolean> Reactivate(string cpf)
         {
             var coll = await _collaboratorRepository.Search(x => x.CPF == cpf);
+
             if (coll == null)
                 return false;
+
             if (coll.isActive == true)
                 return false;
-            coll.isActive = true;
-            await _collaboratorRepository.Update(coll);
-            return true;
+
+            coll.isActive = true;       
+
+            return await _collaboratorRepository.Update(coll);
         }
     }
 }

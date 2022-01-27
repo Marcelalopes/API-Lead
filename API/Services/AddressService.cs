@@ -55,38 +55,45 @@ namespace API.Services
         public async Task<Boolean> Update(AddressNewDto updateAddress, Guid id)
         {
             var result = await _addressRepository.Search(id);
+            
             if (result == null)
                 return false;
+
             result.Street = updateAddress.Street ?? result.Street;
             result.Number = updateAddress.Number ?? result.Number;
             result.District = updateAddress.District ?? result.District;
             result.City = updateAddress.City ?? result.City;
             result.State = updateAddress.State ?? result.State;
 
-            await _addressRepository.Update(result);
-            return true;
+            return await _addressRepository.Update(result);
         }
         public async Task<Boolean> Disable(Guid id)
         {
             var address = await _addressRepository.Search(id);
+
             if (address == null)
                 return false;
+
             if (address.isActive == false)
                 return false;
+
             address.isActive = false;
-            await _addressRepository.Update(address);
-            return true;
+            
+            return await _addressRepository.Update(address);
         }
         public async Task<Boolean> Reactivate(Guid id)
         {
             var address = await _addressRepository.Search(id);
+
             if (address == null)
                 return false;
+
             if (address.isActive == true)
                 return false;
+
             address.isActive = true;
-            await _addressRepository.Update(address);
-            return true;
+            
+            return await _addressRepository.Update(address);
         }
     }
 }
