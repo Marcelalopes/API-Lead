@@ -10,6 +10,7 @@ using API.Enum;
 using API.Models;
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
+using API_Dell.Validations;
 using AutoMapper;
 
 namespace API.Services
@@ -45,7 +46,7 @@ namespace API.Services
         {
             var result = await _collaboratorRepository.GetAll(pageSize, pageNumber, search, orderByType, orderByColumn);
 
-             dynamic response = new ExpandoObject();
+            dynamic response = new ExpandoObject();
             response.currentPage = pageNumber;
             response.pageSize = pageSize;
             response.totalPages = Math.Ceiling((double)result.TotalItemCount / pageSize);
@@ -74,6 +75,14 @@ namespace API.Services
         }
         public async Task<CollaboratorNewDto> Add(CollaboratorNewDto newCollaborator)
         {
+            if (!Validations.isLegalAge(newCollaborator.BirthDate))
+            {
+                throw new Exception("Collaborator is under 18 years of age!");
+            }
+            if (!Validations.IsCpf(newCollaborator.CPF))
+            {
+                throw new Exception("CPF Invalid!.");
+            }
             var result = await _collaboratorRepository.Add(_mapper.Map<Collaborator>(newCollaborator));
             return _mapper.Map<CollaboratorNewDto>(result);
         }
