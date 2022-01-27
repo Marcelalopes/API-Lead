@@ -34,14 +34,14 @@ namespace API.Services
         }
         public async Task<CollaboratorDto> GetByCpf(string cpf)
         {
-            var result = await _collaboratorRepository.SearchCpf(cpf);
+            var result = await _collaboratorRepository.Search(x => x.CPF == cpf);
             if (result == null)
                 return null;
             return _mapper.Map<CollaboratorDto>(result);
         }
         public async Task<CollaboratorDto> GetByName(string name)
         {
-            var result = await _collaboratorRepository.SearchName(name);
+            var result = await _collaboratorRepository.Search(x => x.Name == name);
             if (result == null)
                 return null;
             return _mapper.Map<CollaboratorDto>(result);
@@ -53,7 +53,7 @@ namespace API.Services
         }
         public async Task<Boolean> Update(CollaboratorUpdateDto updateCollaborator, string cpf)
         {
-            var result = await _collaboratorRepository.SearchCpf(cpf);
+            var result = await _collaboratorRepository.Search(x => x.CPF == cpf);
             if (result == null)
                 return false;
 
@@ -67,7 +67,7 @@ namespace API.Services
         }
         public async Task<Boolean> Disable(string cpf)
         {
-            var coll = await _collaboratorRepository.SearchCpf(cpf);
+            var coll = await _collaboratorRepository.Search(x => x.CPF == cpf);
             if (coll == null)
                 return false;
             if (coll.isActive == false)
@@ -78,7 +78,7 @@ namespace API.Services
         }
         public async Task<Boolean> Reactivate(string cpf)
         {
-            var coll = await _collaboratorRepository.SearchCpf(cpf);
+            var coll = await _collaboratorRepository.Search(x => x.CPF == cpf);
             if (coll == null)
                 return false;
             if (coll.isActive == true)

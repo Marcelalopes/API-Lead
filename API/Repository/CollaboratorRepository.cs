@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using API.Context;
 using API.Models;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository
 {
-    public class CollaboratorRepository: ICollaboratorRepository
+    public class CollaboratorRepository : ICollaboratorRepository
     {
         private readonly AppDbContext _context;
         public CollaboratorRepository(AppDbContext context)
@@ -22,16 +23,9 @@ namespace API.Repository
             return await _context.Collaborator.ToListAsync();
         }
 
-        public async Task<Collaborator> SearchCpf(string cpf)
+        public async Task<Collaborator> Search(Expression<Func<Collaborator, bool>> predicate)
         {
-            var coll = await _context.Collaborator.FirstAsync(c => c.CPF == cpf);
-            return coll;
-        }
-
-        public async Task<Collaborator> SearchName(string name)
-        {
-            var coll = await _context.Collaborator.FirstAsync(c => c.Name == name);
-            return coll;
+            return await _context.Collaborator.FirstOrDefaultAsync(predicate);
         }
         public async Task<Collaborator> Add(Collaborator collaborator)
         {
