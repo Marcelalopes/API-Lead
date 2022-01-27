@@ -31,8 +31,16 @@ namespace API.Controllers
             [FromQuery] OrderByColumnAddressEnum orderByColumn = OrderByColumnAddressEnum.City
         )
         {
+            try{
             var result = await _addressService.GetAll(pageSize, pageNumber, search, orderByType, orderByColumn);
             return new ObjectResult(result);
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Listar endereços por Id </summary>
@@ -41,7 +49,15 @@ namespace API.Controllers
         [HttpGet("searchId")]
         public async Task<ActionResult<AddressDto>> SearchIdAddress(Guid id)
         {
+            try{
             return new ObjectResult(await _addressService.SearchId(id));
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Cadastrar endereço </summary>
@@ -62,8 +78,16 @@ namespace API.Controllers
         [HttpPost("add")]
         public async Task<ActionResult<AddressNewDto>> AddAddress([FromBody] AddressNewDto address)
         {
+            try{
             var result = await _addressService.Add(address);
             return new CreatedResult("", result);
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Atualizar endereço </summary>
@@ -85,8 +109,16 @@ namespace API.Controllers
         [HttpPut("update/{id}:Guid")]
         public async Task<ActionResult> UpdateAddress([FromBody] AddressNewDto address, Guid id)
         {
+            try{
             await _addressService.Update(address, id);
             return new OkObjectResult(address);
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Desativar um endereço </summary>
@@ -96,8 +128,16 @@ namespace API.Controllers
         [HttpDelete("disable/{id}:Guid")]
         public async Task<ActionResult> DisableAddress(Guid id)
         {
+            try{
             var result = await _addressService.Disable(id);
             return result ? new OkResult() : new NotFoundResult();
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Reativa um endereço </summary>
@@ -107,8 +147,16 @@ namespace API.Controllers
         [HttpPut("reactivate/{id}:Guid")]
         public async Task<ActionResult> ReactivateAddress(Guid id)
         {
+            try{
             var result = await _addressService.Reactivate(id);
             return result ? new OkResult() : new NotFoundResult();
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
     }
 }

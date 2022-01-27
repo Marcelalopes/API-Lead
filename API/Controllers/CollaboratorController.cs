@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Dtos.Collaborator;
@@ -29,7 +30,17 @@ namespace API.Controllers
             [FromQuery] OrderByColumnCollaboratorEnum orderByColumn = OrderByColumnCollaboratorEnum.Name
         )
         {
-            return new ObjectResult(await _collaboratorService.GetAllActive(pageSize, pageNumber, search, orderByType, orderByColumn));
+            try
+            {
+                return new ObjectResult(await _collaboratorService.GetAllActive(pageSize, pageNumber, search, orderByType, orderByColumn));
+            }
+            catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Listar todos os colaboradores desativados </summary>
@@ -44,7 +55,17 @@ namespace API.Controllers
             [FromQuery] OrderByColumnCollaboratorEnum orderByColumn = OrderByColumnCollaboratorEnum.Name
         )
         {
-            return new ObjectResult(await _collaboratorService.GetAllDisable(pageSize, pageNumber, search, orderByType, orderByColumn));
+            try
+            {
+                return new ObjectResult(await _collaboratorService.GetAllDisable(pageSize, pageNumber, search, orderByType, orderByColumn));
+            }
+            catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Listar colaboradores por cpf </summary>
@@ -53,7 +74,15 @@ namespace API.Controllers
         [HttpGet("getByCpf/{cpf}:string")]
         public async Task<ActionResult<CollaboratorDto>> GetCpfCollaborator(string cpf)
         {
+            try{
             return new ObjectResult(await _collaboratorService.GetByCpf(cpf));
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Listar colaboradores por nome </summary>
@@ -62,7 +91,15 @@ namespace API.Controllers
         [HttpGet("getByName/{name}:string")]
         public async Task<ActionResult<CollaboratorDto>> GetNameCollaborator(string name)
         {
-            return new ObjectResult(await _collaboratorService.GetByName(name));
+            try{
+                return new ObjectResult(await _collaboratorService.GetByName(name));
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Cadastrar colaborador </summary>
@@ -84,8 +121,17 @@ namespace API.Controllers
         [HttpPost("add")]
         public async Task<ActionResult<CollaboratorNewDto>> AddCollaborator([FromBody] CollaboratorNewDto collaborator)
         {
-            var result = await _collaboratorService.Add(collaborator);
-            return new CreatedResult("", result);
+           try{
+                var result = await _collaboratorService.Add(collaborator);
+                return new CreatedResult("", result);
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
+            
         }
 
         /// <summary> Atualizar collaborador </summary>
@@ -106,9 +152,16 @@ namespace API.Controllers
         [HttpPut("update/{cpf}:string")]
         public async Task<ActionResult> UpdateCollaborator([FromBody] CollaboratorUpdateDto collaborator, string cpf)
         {
-
+            try{
             await _collaboratorService.Update(collaborator, cpf);
             return new OkObjectResult(collaborator);
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Desativar um colaborador </summary>
@@ -118,8 +171,16 @@ namespace API.Controllers
         [HttpDelete("disable/{cpf}:string")]
         public async Task<ActionResult> DisableCollaborator(string cpf)
         {
+            try{
             var result = await _collaboratorService.Disable(cpf);
             return result ? new OkResult() : new NotFoundResult();
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
 
         /// <summary> Reativar um colaborador </summary>
@@ -129,8 +190,16 @@ namespace API.Controllers
         [HttpPut("reactivate/{cpf}:string")]
         public async Task<ActionResult> ReactivateCollaborator(string cpf)
         {
+            try{
             var result = await _collaboratorService.Reactivate(cpf);
             return result ? new OkResult() : new NotFoundResult();
+            }catch (Exception e)
+            {
+                string message = e.Message;
+                if (e.InnerException != null)
+                    message = $"{e.Message} {e.InnerException.Message}";
+                return BadRequest(message);
+            }
         }
     }
 }
