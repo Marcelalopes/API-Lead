@@ -1,15 +1,13 @@
 using System.Threading.Tasks;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using API.Dtos.Address;
-using API.Models;
+using API.Enum;
 
 namespace API.Services.Interfaces
 {
     public interface IAddressService
     {
-        Task<IEnumerable<AddressDto>> GetAll();
+        Task<dynamic> GetAll(int pageSize, int pageNumber, string search, OrderByTypeEnum orderByType, OrderByColumnAddressEnum orderByColumn);
         Task<AddressDto> SearchId (Guid id);
         Task<AddressNewDto> Add(AddressNewDto address);
         Task<Boolean> Update(AddressNewDto address, Guid id);

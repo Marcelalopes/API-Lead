@@ -1,15 +1,15 @@
 using System.Threading.Tasks;
 using System;
-using System.Collections.Generic;
 using API.Dtos.Collaborator;
-using API.Models;
+using X.PagedList;
+using API.Enum;
 
 namespace API.Services.Interfaces
 {
     public interface ICollaboratorService
     {
-        Task<IEnumerable<CollaboratorDto>> GetAllActive();
-        Task<IEnumerable<CollaboratorDto>> GetAllDisable();
+        Task<dynamic> GetAllActive(int pageSize, int pageNumber, string search, OrderByTypeEnum orderByType, OrderByColumnCollaboratorEnum orderByColumn);
+        Task<dynamic> GetAllDisable(int pageSize, int pageNumber, string search, OrderByTypeEnum orderByType, OrderByColumnCollaboratorEnum orderByColumn);
         Task<CollaboratorDto> GetByCpf(string cpf);
         Task<CollaboratorDto> GetByName(string name);
         Task<CollaboratorNewDto> Add(CollaboratorNewDto collaborator);

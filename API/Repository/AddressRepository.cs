@@ -1,11 +1,13 @@
 using System.Threading.Tasks;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using API.Context;
 using API.Models;
 using API.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
+using API.Enum;
 
 namespace API.Repository
 {
@@ -18,9 +20,20 @@ namespace API.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<Address>> GetAll()
+        public async Task<IPagedList<Address>> GetAll(
+            int pageSize,
+            int pageNumber,
+            string search,
+            OrderByTypeEnum orderByType,
+            OrderByColumnAddressEnum orderByColumn
+        )
         {
-            return await _context.Address.ToListAsync();
+            return await _context.Address
+            .OrderBy(
+                $"{orderByColumn.ToString()} { orderByType.ToString()}"
+            )
+            .Where(c => c.City.Contains(search))
+            .ToPagedListAsync(pageNumber, pageSize);
         }
 
         public async Task<Address> Search(Guid id)

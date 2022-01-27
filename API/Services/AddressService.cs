@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Context;
 using API.Dtos.Address;
+using API.Enum;
 using API.Models;
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
@@ -21,10 +23,22 @@ namespace API.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AddressDto>> GetAll()
+        public async Task<dynamic> GetAll(int pageSize, int pageNumber, string search, OrderByTypeEnum orderByType, OrderByColumnAddressEnum orderByColumn)
         {
-            var result = await _addressRepository.GetAll();
-            return _mapper.Map<IEnumerable<AddressDto>>(result).ToList();
+            var result = await _addressRepository.GetAll(pageSize, pageNumber, search, orderByType, orderByColumn);
+
+            dynamic response = new ExpandoObject();
+            response.currentPage = pageNumber;
+            response.pageSize = pageSize;
+            response.totalPages = Math.Ceiling((double)result.TotalItemCount / pageSize);
+            response.totalItems = result.TotalItemCount;
+            response.search = search;
+            response.orderByType = orderByType;
+            response.orderByColumn = orderByColumn;
+
+            response.data = _mapper.Map<IEnumerable<AddressDto>>(result);
+
+            return response;
         }
         public async Task<AddressDto> SearchId(Guid id)
         {

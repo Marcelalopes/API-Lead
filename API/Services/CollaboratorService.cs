@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Context;
 using API.Dtos.Collaborator;
+using API.Enum;
 using API.Models;
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
@@ -22,15 +24,39 @@ namespace API.Services
             _collaboratorRepository = collaboratorRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<CollaboratorDto>> GetAllActive()
+        public async Task<dynamic> GetAllActive(int pageSize, int pageNumber, string search, OrderByTypeEnum orderByType, OrderByColumnCollaboratorEnum orderByColumn)
         {
-            var result = await _collaboratorRepository.GetAll();
-            return _mapper.Map<IEnumerable<CollaboratorDto>>(result).ToList().Where(x => x.isActive == true);
+            var result = await _collaboratorRepository.GetAll(pageSize, pageNumber, search, orderByType, orderByColumn);
+
+            dynamic response = new ExpandoObject();
+            response.currentPage = pageNumber;
+            response.pageSize = pageSize;
+            response.totalPages = Math.Ceiling((double)result.TotalItemCount / pageSize);
+            response.totalItems = result.TotalItemCount;
+            response.search = search;
+            response.orderByType = orderByType;
+            response.orderByColumn = orderByColumn;
+
+            response.data = _mapper.Map<IEnumerable<CollaboratorDto>>(result).ToList().Where(x => x.isActive == true);
+
+            return response;
         }
-        public async Task<IEnumerable<CollaboratorDto>> GetAllDisable()
+        public async Task<dynamic> GetAllDisable(int pageSize, int pageNumber, string search, OrderByTypeEnum orderByType, OrderByColumnCollaboratorEnum orderByColumn)
         {
-            var result = await _collaboratorRepository.GetAll();
-            return _mapper.Map<IEnumerable<CollaboratorDto>>(result).ToList().Where(x => x.isActive == false);
+            var result = await _collaboratorRepository.GetAll(pageSize, pageNumber, search, orderByType, orderByColumn);
+
+             dynamic response = new ExpandoObject();
+            response.currentPage = pageNumber;
+            response.pageSize = pageSize;
+            response.totalPages = Math.Ceiling((double)result.TotalItemCount / pageSize);
+            response.totalItems = result.TotalItemCount;
+            response.search = search;
+            response.orderByType = orderByType;
+            response.orderByColumn = orderByColumn;
+
+            response.data = _mapper.Map<IEnumerable<CollaboratorDto>>(result).ToList().Where(x => x.isActive == false);
+
+            return response;
         }
         public async Task<CollaboratorDto> GetByCpf(string cpf)
         {

@@ -36,12 +36,11 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabase(Configuration);
+            services.AddController();
 
             services.AddDependeci();
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
-
-            services.AddControllers();
 
             services.AddSwagger();
         }

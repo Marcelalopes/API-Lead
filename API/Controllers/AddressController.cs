@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Dtos.Address;
+using API.Enum;
 using API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +22,17 @@ namespace API.Controllers
         /// <response code="200"> Sucesso </response>
         /// <response code="400"> ERROR: Parâmetro inválido </response>
         [HttpGet("getAll")]
-        public async Task<ActionResult<IEnumerable<AddressDto>>> GetAllAddress()
+        public async Task<ActionResult> GetAllAddress
+        (
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 5,
+            [FromQuery] string search = "",
+            [FromQuery] OrderByTypeEnum orderByType = OrderByTypeEnum.ASC,
+            [FromQuery] OrderByColumnAddressEnum orderByColumn = OrderByColumnAddressEnum.City
+        )
         {
-            return new ObjectResult(await _addressService.GetAll());
+            var result = await _addressService.GetAll(pageSize, pageNumber, search, orderByType, orderByColumn);
+            return new ObjectResult(result);
         }
 
         /// <summary> Listar endereços por Id </summary>

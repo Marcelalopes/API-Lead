@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Dtos.Collaborator;
+using API.Enum;
 using API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,18 +21,30 @@ namespace API.Controllers
         /// <response code="200"> Sucesso </response>
         /// <response code="400"> ERROR: Parâmetro inválido </response>
         [HttpGet("getAllActive")]
-        public async Task<ActionResult<IEnumerable<CollaboratorDto>>> GetAllActive()
+        public async Task<ActionResult<IEnumerable<CollaboratorDto>>> GetAllActive(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 5,
+            [FromQuery] string search = "",
+            [FromQuery] OrderByTypeEnum orderByType = OrderByTypeEnum.ASC,
+            [FromQuery] OrderByColumnCollaboratorEnum orderByColumn = OrderByColumnCollaboratorEnum.Name
+        )
         {
-            return new ObjectResult(await _collaboratorService.GetAllActive());
+            return new ObjectResult(await _collaboratorService.GetAllActive(pageSize, pageNumber, search, orderByType, orderByColumn));
         }
 
         /// <summary> Listar todos os colaboradores desativados </summary>
         /// <response code="200"> Sucesso </response>
         /// <response code="400"> ERROR: Parâmetro inválido </response>
         [HttpGet("getAllDisable")]
-        public async Task<ActionResult<IEnumerable<CollaboratorDto>>> GetAllDisable()
+        public async Task<ActionResult<IEnumerable<CollaboratorDto>>> GetAllDisable(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 5,
+            [FromQuery] string search = "",
+            [FromQuery] OrderByTypeEnum orderByType = OrderByTypeEnum.ASC,
+            [FromQuery] OrderByColumnCollaboratorEnum orderByColumn = OrderByColumnCollaboratorEnum.Name
+        )
         {
-            return new ObjectResult(await _collaboratorService.GetAllDisable());
+            return new ObjectResult(await _collaboratorService.GetAllDisable(pageSize, pageNumber, search, orderByType, orderByColumn));
         }
 
         /// <summary> Listar colaboradores por cpf </summary>
