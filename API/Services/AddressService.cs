@@ -6,49 +6,36 @@ using API.Dtos.Address;
 using API.Models;
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
+using AutoMapper;
 
 namespace API.Services
 {
     public class AddressService : IAddressService
     {
         private readonly IAddressRepository _addressRepository;
-        public AddressService(IAddressRepository addressRepository)
+        private readonly IMapper _mapper;
+        public AddressService(IAddressRepository addressRepository, IMapper mapper)
         {
             _addressRepository = addressRepository;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Address> GetAll()
+        public IEnumerable<AddressDto> GetAll()
         {
-            return _addressRepository.GetAll().ToList();
+            return _mapper.Map<IEnumerable<AddressDto>>(_addressRepository.GetAll().ToList());
         }
-        public Address SearchId(Guid id)
+        public AddressDto SearchId(Guid id)
         {
-            return _addressRepository.Search(id);
+            return _mapper.Map<AddressDto>(_addressRepository.Search(id));
         }
         public AddressNewDto Add(AddressNewDto newAddress)
         {
-            Address address = new Address()
-            {
-                Street = newAddress.Street,
-                Number = newAddress.Number,
-                District = newAddress.District,
-                City = newAddress.City,
-                State = newAddress.State
-            };
-            _addressRepository.Add(address);
+            _addressRepository.Add(_mapper.Map<Address>(newAddress));
             return newAddress;
         }
         public void Update(AddressNewDto updateAddress)
         {
-            Address address = new Address()
-            {
-                Street = updateAddress.Street,
-                Number = updateAddress.Number,
-                District = updateAddress.District,
-                City = updateAddress.City,
-                State = updateAddress.State
-            };
-            _addressRepository.Update(address);
+            _addressRepository.Update(_mapper.Map<Address>(updateAddress));
         }
         public Boolean Disable(Guid id)
         {

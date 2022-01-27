@@ -7,59 +7,46 @@ using API.Dtos.Collaborator;
 using API.Models;
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
+using AutoMapper;
 
 namespace API.Services
 {
     public class CollaboratorService : ICollaboratorService
     {
         private readonly ICollaboratorRepository _collaboratorRepository;
+        private readonly IMapper _mapper;
 
-        public CollaboratorService(ICollaboratorRepository collaboratorRepository)
+        public CollaboratorService(ICollaboratorRepository collaboratorRepository, IMapper mapper)
         {
             _collaboratorRepository = collaboratorRepository;
+            _mapper = mapper;
         }
-        public IEnumerable<Collaborator> GetAllActive()
+        public IEnumerable<CollaboratorDto> GetAllActive()
         {
-            return _collaboratorRepository.GetAll().ToList().Where(x => x.isActive == true);
+            return _mapper.Map<IEnumerable<CollaboratorDto>>(_collaboratorRepository.GetAll().ToList().Where(x => x.isActive == true));
         }
-        public IEnumerable<Collaborator> GetAllDisable()
+        public IEnumerable<CollaboratorDto> GetAllDisable()
         {
-            return _collaboratorRepository.GetAll().ToList().Where(x => x.isActive == false);
+            return _mapper.Map<IEnumerable<CollaboratorDto>>(_collaboratorRepository.GetAll().ToList().Where(x => x.isActive == false));
         }
-        public Collaborator GetByCpf(string cpf)
+        public CollaboratorDto GetByCpf(string cpf)
         {
-            var coll = _collaboratorRepository.SearchCpf(cpf);
+            var coll = _mapper.Map<CollaboratorDto>(_collaboratorRepository.SearchCpf(cpf));
             return coll;
         }
-        public Collaborator GetByName(string name)
+        public CollaboratorDto GetByName(string name)
         {
-            var coll = _collaboratorRepository.SearchName(name);
+            var coll = _mapper.Map<CollaboratorDto>(_collaboratorRepository.SearchName(name));
             return coll;
         }
         public CollaboratorNewDto Add(CollaboratorNewDto newCollaborator)
         {
-            Collaborator collaborator = new Collaborator()
-            {
-                CPF = newCollaborator.CPF,
-                Name = newCollaborator.Name,
-                BirthDate = newCollaborator.BirthDate,
-                Gender = newCollaborator.Gender,
-                Phone = newCollaborator.Phone,
-                AddressId = newCollaborator.AddressId
-            };
-            _collaboratorRepository.Add(collaborator);
+            _collaboratorRepository.Add(_mapper.Map<Collaborator>(newCollaborator));
             return newCollaborator;
         }
         public void Update(CollaboratorUpdateDto updateCollaborator)
         {
-            Collaborator collaborator = new Collaborator()
-            {
-                Name = updateCollaborator.Name,
-                Gender = updateCollaborator.Gender,
-                Phone = updateCollaborator.Phone,
-                AddressId = updateCollaborator.AddressId
-            };
-            _collaboratorRepository.Update(collaborator);
+            _collaboratorRepository.Update(_mapper.Map<Collaborator>(updateCollaborator));
         }
         public Boolean Disable(string cpf)
         {

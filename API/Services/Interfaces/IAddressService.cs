@@ -8,8 +8,8 @@ namespace API.Services.Interfaces
 {
     public interface IAddressService
     {
-        IEnumerable<Address> GetAll();
-        Address SearchId (Guid id);
+        IEnumerable<AddressDto> GetAll();
+        AddressDto SearchId (Guid id);
         AddressNewDto Add(AddressNewDto address);
         void Update(AddressNewDto address);
         Boolean Disable(Guid id);

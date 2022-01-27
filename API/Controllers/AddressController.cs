@@ -21,13 +21,13 @@ namespace API.Controllers
         }
 
         [HttpGet("getAll")]
-        public ActionResult<IEnumerable<Address>> GetAllAddress()
+        public ActionResult<IEnumerable<AddressDto>> GetAllAddress()
         {
             return new ObjectResult(_addressService.GetAll().ToList());
         }
 
         [HttpGet("searchId")]
-        public ActionResult<Address> SearchIdAddress(Guid id)
+        public ActionResult<AddressDto> SearchIdAddress(Guid id)
         {
             return new ObjectResult(_addressService.SearchId(id));
         }

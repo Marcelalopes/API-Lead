@@ -7,10 +7,10 @@ namespace API.Services.Interfaces
 {
     public interface ICollaboratorService
     {
-        IEnumerable<Collaborator> GetAllActive();
-        IEnumerable<Collaborator> GetAllDisable();
-        Collaborator GetByCpf(string cpf);
-        Collaborator GetByName(string name);
+        IEnumerable<CollaboratorDto> GetAllActive();
+        IEnumerable<CollaboratorDto> GetAllDisable();
+        CollaboratorDto GetByCpf(string cpf);
+        CollaboratorDto GetByName(string name);
         CollaboratorNewDto Add(CollaboratorNewDto collaborator);
         void Update(CollaboratorUpdateDto collaborator);
         Boolean Disable(string cpf);

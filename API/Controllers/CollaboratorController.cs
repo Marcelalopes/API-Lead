@@ -20,25 +20,25 @@ namespace API.Controllers
         }
 
         [HttpGet("getAllActive")]
-        public ActionResult<IEnumerable<Collaborator>> GetAllActive()
+        public ActionResult<IEnumerable<CollaboratorDto>> GetAllActive()
         {
             return new ObjectResult(_collaboratorService.GetAllActive().ToList());
         }
 
         [HttpGet("getAllDisable")]
-        public ActionResult<IEnumerable<Collaborator>> GetAllDisable()
+        public ActionResult<IEnumerable<CollaboratorDto>> GetAllDisable()
         {
             return new ObjectResult(_collaboratorService.GetAllDisable().ToList());
         }
 
         [HttpGet("getByCpf/{cpf}:string")]
-        public ActionResult<Collaborator> GetCpfCollaborator(string cpf)
+        public ActionResult<CollaboratorDto> GetCpfCollaborator(string cpf)
         {
             return new ObjectResult(_collaboratorService.GetByCpf(cpf));
         }
 
         [HttpGet("getByName/{name}:string")]
-        public ActionResult<Collaborator> GetNameCollaborator(string name)
+        public ActionResult<CollaboratorDto> GetNameCollaborator(string name)
         {
             return new ObjectResult(_collaboratorService.GetByName(name));
         }

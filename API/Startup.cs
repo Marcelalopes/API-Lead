@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.config;
 using API.Context;
+using API.Dtos.Address;
+using API.Dtos.Collaborator;
+using API.Models;
 using API.Repository;
 using API.Repository.Interfaces;
 using API.Services;
@@ -43,6 +47,8 @@ namespace api
 
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+
+            services.AddAutoMapper(typeof(AutoMapperProfile));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
