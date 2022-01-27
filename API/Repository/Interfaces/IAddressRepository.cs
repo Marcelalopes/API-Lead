@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using API.Models;
@@ -6,9 +7,9 @@ namespace API.Repository.Interfaces
 {
     public interface IAddressRepository
     {
-        IEnumerable<Address> GetAll();
-        Address Search(Guid id);
-        Address Add(Address address);
-        void Update(Address address);
+        Task<IEnumerable<Address>> GetAll();
+        Task<Address> Search(Guid id);
+        Task<Address> Add(Address address);
+        Task<Boolean> Update(Address address);
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ namespace API.Services.Interfaces
 {
     public interface IAddressService
     {
-        IEnumerable<AddressDto> GetAll();
-        AddressDto SearchId (Guid id);
-        AddressNewDto Add(AddressNewDto address);
-        void Update(AddressNewDto address);
-        Boolean Disable(Guid id);
-        Boolean Reactivate(Guid id);
+        Task<IEnumerable<AddressDto>> GetAll();
+        Task<AddressDto> SearchId (Guid id);
+        Task<AddressNewDto> Add(AddressNewDto address);
+        Task<Boolean> Update(AddressNewDto address, Guid id);
+        Task<Boolean> Disable(Guid id);
+        Task<Boolean> Reactivate(Guid id);
     }
 }

@@ -1,9 +1,11 @@
+using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using API.Context;
 using API.Models;
 using API.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository
 {
@@ -16,27 +18,28 @@ namespace API.Repository
             _context = context;
         }
 
-        public IEnumerable<Address> GetAll()
+        public async Task<IEnumerable<Address>> GetAll()
         {
-            return _context.Address.ToList();
+            return await _context.Address.ToListAsync();
         }
 
-        public Address Search(Guid id)
+        public async Task<Address> Search(Guid id)
         {
-            return _context.Address.First(x => x.Id == id);
+            return await _context.Address.FirstAsync(x => x.Id == id);
         }
 
-        public Address Add(Address address)
+        public async Task<Address> Add(Address address)
         {
-            _context.Address.Add(address);
+            var result = await _context.Address.AddAsync(address);
             _context.SaveChanges();
-            return address;
+            return result.Entity;
         }
 
-        public void Update(Address address)
+        public async Task<Boolean> Update(Address address)
         {
             _context.Address.Update(address);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

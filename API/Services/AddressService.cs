@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using API.Context;
 using API.Dtos.Address;
 using API.Models;
@@ -20,43 +21,57 @@ namespace API.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<AddressDto> GetAll()
+        public async Task<IEnumerable<AddressDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<AddressDto>>(_addressRepository.GetAll().ToList());
+            var result = await _addressRepository.GetAll();
+            return _mapper.Map<IEnumerable<AddressDto>>(result).ToList();
         }
-        public AddressDto SearchId(Guid id)
+        public async Task<AddressDto> SearchId(Guid id)
         {
-            return _mapper.Map<AddressDto>(_addressRepository.Search(id));
+            var result = await _addressRepository.Search(id);
+            if (result == null)
+                throw new Exception("Address not found");
+            return _mapper.Map<AddressDto>(result);
         }
-        public AddressNewDto Add(AddressNewDto newAddress)
+        public async Task<AddressNewDto> Add(AddressNewDto newAddress)
         {
-            _addressRepository.Add(_mapper.Map<Address>(newAddress));
-            return newAddress;
+            var result = await _addressRepository.Add(_mapper.Map<Address>(newAddress));
+            return _mapper.Map<AddressNewDto>(result);
         }
-        public void Update(AddressNewDto updateAddress)
+        public async Task<Boolean> Update(AddressNewDto updateAddress, Guid id)
         {
-            _addressRepository.Update(_mapper.Map<Address>(updateAddress));
+            var result = await _addressRepository.Search(id);
+            if (result == null)
+                return false;
+            result.Street = updateAddress.Street ?? result.Street;
+            result.Number = updateAddress.Number ?? result.Number;
+            result.District = updateAddress.District ?? result.District;
+            result.City = updateAddress.City ?? result.City;
+            result.State = updateAddress.State ?? result.State;
+
+            await _addressRepository.Update(result);
+            return true;
         }
-        public Boolean Disable(Guid id)
+        public async Task<Boolean> Disable(Guid id)
         {
-            var address = _addressRepository.Search(id);
+            var address = await _addressRepository.Search(id);
             if (address == null)
                 return false;
             if (address.isActive == false)
                 return false;
             address.isActive = false;
-            _addressRepository.Update(address);
+            await _addressRepository.Update(address);
             return true;
         }
-        public Boolean Reactivate(Guid id)
+        public async Task<Boolean> Reactivate(Guid id)
         {
-            var address = _addressRepository.Search(id);
+            var address = await _addressRepository.Search(id);
             if (address == null)
                 return false;
             if (address.isActive == true)
                 return false;
             address.isActive = true;
-            _addressRepository.Update(address);
+            await _addressRepository.Update(address);
             return true;
         }
     }

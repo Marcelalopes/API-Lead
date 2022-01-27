@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using API.Context;
 using API.Dtos.Collaborator;
 using API.Models;
@@ -21,53 +22,69 @@ namespace API.Services
             _collaboratorRepository = collaboratorRepository;
             _mapper = mapper;
         }
-        public IEnumerable<CollaboratorDto> GetAllActive()
+        public async Task<IEnumerable<CollaboratorDto>> GetAllActive()
         {
-            return _mapper.Map<IEnumerable<CollaboratorDto>>(_collaboratorRepository.GetAll().ToList().Where(x => x.isActive == true));
+            var result = await _collaboratorRepository.GetAll();
+            return _mapper.Map<IEnumerable<CollaboratorDto>>(result).ToList().Where(x => x.isActive == true);
         }
-        public IEnumerable<CollaboratorDto> GetAllDisable()
+        public async Task<IEnumerable<CollaboratorDto>> GetAllDisable()
         {
-            return _mapper.Map<IEnumerable<CollaboratorDto>>(_collaboratorRepository.GetAll().ToList().Where(x => x.isActive == false));
+            var result = await _collaboratorRepository.GetAll();
+            return _mapper.Map<IEnumerable<CollaboratorDto>>(result).ToList().Where(x => x.isActive == false);
         }
-        public CollaboratorDto GetByCpf(string cpf)
+        public async Task<CollaboratorDto> GetByCpf(string cpf)
         {
-            var coll = _mapper.Map<CollaboratorDto>(_collaboratorRepository.SearchCpf(cpf));
-            return coll;
+            var result = await _collaboratorRepository.SearchCpf(cpf);
+            if (result == null)
+                return null;
+            return _mapper.Map<CollaboratorDto>(result);
         }
-        public CollaboratorDto GetByName(string name)
+        public async Task<CollaboratorDto> GetByName(string name)
         {
-            var coll = _mapper.Map<CollaboratorDto>(_collaboratorRepository.SearchName(name));
-            return coll;
+            var result = await _collaboratorRepository.SearchName(name);
+            if (result == null)
+                return null;
+            return _mapper.Map<CollaboratorDto>(result);
         }
-        public CollaboratorNewDto Add(CollaboratorNewDto newCollaborator)
+        public async Task<CollaboratorNewDto> Add(CollaboratorNewDto newCollaborator)
         {
-            _collaboratorRepository.Add(_mapper.Map<Collaborator>(newCollaborator));
-            return newCollaborator;
+            var result = await _collaboratorRepository.Add(_mapper.Map<Collaborator>(newCollaborator));
+            return _mapper.Map<CollaboratorNewDto>(result);
         }
-        public void Update(CollaboratorUpdateDto updateCollaborator)
+        public async Task<Boolean> Update(CollaboratorUpdateDto updateCollaborator, string cpf)
         {
-            _collaboratorRepository.Update(_mapper.Map<Collaborator>(updateCollaborator));
+            var result = await _collaboratorRepository.SearchCpf(cpf);
+            if (result == null)
+                return false;
+
+            result.Name = updateCollaborator.Name ?? result.Name;
+            result.Gender = updateCollaborator.Gender ?? result.Gender;
+            result.Phone = updateCollaborator.Phone ?? result.Phone;
+            result.AddressId = updateCollaborator.AddressId ?? result.AddressId;
+
+            await _collaboratorRepository.Update(result);
+            return true;
         }
-        public Boolean Disable(string cpf)
+        public async Task<Boolean> Disable(string cpf)
         {
-            var coll = _collaboratorRepository.SearchCpf(cpf);
+            var coll = await _collaboratorRepository.SearchCpf(cpf);
             if (coll == null)
                 return false;
             if (coll.isActive == false)
                 return false;
             coll.isActive = false;
-            _collaboratorRepository.Update(coll);
+            await _collaboratorRepository.Update(coll);
             return true;
         }
-        public Boolean Reactivate(string cpf)
+        public async Task<Boolean> Reactivate(string cpf)
         {
-            var coll = _collaboratorRepository.SearchCpf(cpf);
+            var coll = await _collaboratorRepository.SearchCpf(cpf);
             if (coll == null)
                 return false;
             if (coll.isActive == true)
                 return false;
             coll.isActive = true;
-            _collaboratorRepository.Update(coll);
+            await _collaboratorRepository.Update(coll);
             return true;
         }
     }

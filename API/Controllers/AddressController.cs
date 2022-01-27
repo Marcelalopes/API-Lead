@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using API.Context;
 using API.Dtos.Address;
 using API.Models;
@@ -21,42 +22,42 @@ namespace API.Controllers
         }
 
         [HttpGet("getAll")]
-        public ActionResult<IEnumerable<AddressDto>> GetAllAddress()
+        public async Task<ActionResult<IEnumerable<AddressDto>>> GetAllAddress()
         {
-            return new ObjectResult(_addressService.GetAll().ToList());
+            return new ObjectResult(await _addressService.GetAll());
         }
 
         [HttpGet("searchId")]
-        public ActionResult<AddressDto> SearchIdAddress(Guid id)
+        public async Task<ActionResult<AddressDto>> SearchIdAddress(Guid id)
         {
-            return new ObjectResult(_addressService.SearchId(id));
+            return new ObjectResult(await _addressService.SearchId(id));
         }
 
         [HttpPost("add")]
-        public ActionResult<AddressNewDto> AddAddress([FromBody] AddressNewDto address)
+        public async Task<ActionResult<AddressNewDto>> AddAddress([FromBody] AddressNewDto address)
         {
-            var result = _addressService.Add(address);
+            var result = await _addressService.Add(address);
             return new CreatedResult("", result);
         }
 
         [HttpPut("update/{id}:Guid")]
-        public ActionResult UpdateAddress([FromBody] AddressNewDto address, Guid id)
+        public async Task<ActionResult> UpdateAddress([FromBody] AddressNewDto address, Guid id)
         {
-            _addressService.Update(address);
+            await _addressService.Update(address, id);
             return new OkObjectResult(address);
         }
 
         [HttpDelete("disable/{id}:Guid")]
-        public ActionResult DisableAddress(Guid id)
+        public async Task<ActionResult> DisableAddress(Guid id)
         {
-            var result = _addressService.Disable(id);
+            var result = await _addressService.Disable(id);
             return result ? new OkResult() : new NotFoundResult();
         }
 
         [HttpPut("reactivate/{id}:Guid")]
-        public ActionResult ReactivateAddress(Guid id)
+        public async Task<ActionResult> ReactivateAddress(Guid id)
         {
-            var result = _addressService.Reactivate(id);
+            var result = await _addressService.Reactivate(id);
             return result ? new OkResult() : new NotFoundResult();
         }
     }

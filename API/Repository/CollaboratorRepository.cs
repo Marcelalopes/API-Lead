@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using API.Context;
 using API.Models;
 using API.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository
 {
@@ -14,32 +17,33 @@ namespace API.Repository
             _context = context;
         }
 
-        public IEnumerable<Collaborator> GetAll()
+        public async Task<IEnumerable<Collaborator>> GetAll()
         {
-            return _context.Collaborator.ToList();
+            return await _context.Collaborator.ToListAsync();
         }
 
-        public Collaborator SearchCpf(string cpf)
+        public async Task<Collaborator> SearchCpf(string cpf)
         {
-            var coll = _context.Collaborator.First(c => c.CPF == cpf);
+            var coll = await _context.Collaborator.FirstAsync(c => c.CPF == cpf);
             return coll;
         }
 
-        public Collaborator SearchName(string name)
+        public async Task<Collaborator> SearchName(string name)
         {
-            var coll = _context.Collaborator.First(c => c.Name == name);
+            var coll = await _context.Collaborator.FirstAsync(c => c.Name == name);
             return coll;
         }
-        public Collaborator Add(Collaborator collaborator)
+        public async Task<Collaborator> Add(Collaborator collaborator)
         {
-            _context.Collaborator.Add(collaborator);
+            var coll = await _context.Collaborator.AddAsync(collaborator);
             _context.SaveChanges();
-            return collaborator;
+            return coll.Entity;
         }
-        public void Update(Collaborator collaborator)
+        public async Task<Boolean> Update(Collaborator collaborator)
         {
             _context.Collaborator.Update(collaborator);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
