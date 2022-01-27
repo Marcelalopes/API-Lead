@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>api</name>
+    </assembly>
+    <members>
+        <member name="M:API.Controllers.AddressController.GetAllAddress">
+            <summary> Listar todos os endereços </summary>
+            <response code="200"> Sucesso </response>
+            <response code="400"> ERROR: Parâmetro inválido </response>
+        </member>
+        <member name="M:API.Controllers.AddressController.SearchIdAddress(System.Guid)">
+            <summary> Listar endereços por Id </summary>
+            <response code="200"> Sucesso </response>
+            <response code="404"> ERROR: Endereço não encontrado </response>
+        </member>
+        <member name="M:API.Controllers.AddressController.AddAddress(API.Dtos.Address.AddressNewDto)">
+             <summary> Cadastrar endereço </summary>
+             <remarks>
+                 Exemplo RequestBody:
+            
+                     {
+                         "street": "Rua 7 de Setembro",
+                         "number": "5B",
+                         "district": "Centro",
+                         "city": "Pedro II",
+                         "state":"PI"
+                     }
+            
+             </remarks>
+             <response code="201"> Sucesso </response>
+             <response code="400"> ERROR: Erro de validação </response>
+        </member>
+        <member name="M:API.Controllers.AddressController.UpdateAddress(API.Dtos.Address.AddressNewDto,System.Guid)">
+             <summary> Atualizar endereço </summary>
+             <remarks>
+                 Exemplo RequestBody:
+            
+                     {
+                         "street": "Rua 7 de Setembro",
+                         "number": "5B",
+                         "district": "Centro",
+                         "city": "Pedro II",
+                         "state":"PI"
+                     }
+            
+             </remarks>
+             <response code="204"> Sucesso: Sem conteúdo </response>
+             <response code="400"> ERROR: Erro de validação </response>
+             <response code="404"> ERROR: Endereço não encontrado </response>
+        </member>
+        <member name="M:API.Controllers.AddressController.DisableAddress(System.Guid)">
+            <summary> Desativar um endereço </summary>
+            <param name="id"> Id do endereço que será desativado </param>
+            <response code="204"> Sucesso: Sem conteúdo </response>
+            <response code="404"> ERROR: Endereço não encontrado </response>
+        </member>
+        <member name="M:API.Controllers.AddressController.ReactivateAddress(System.Guid)">
+            <summary> Reativa um endereço </summary>
+            <param name="id"> Id do endereço que será reativado </param>
+            <response code="204"> Sucesso: Sem conteúdo </response>
+            <response code="404"> ERROR: Endereço não encontrado </response>
+        </member>
+        <member name="M:API.Controllers.CollaboratorController.GetAllActive">
+            <summary> Listar todos os colaboradores ativos </summary>
+            <response code="200"> Sucesso </response>
+            <response code="400"> ERROR: Parâmetro inválido </response>
+        </member>
+        <member name="M:API.Controllers.CollaboratorController.GetAllDisable">
+            <summary> Listar todos os colaboradores desativados </summary>
+            <response code="200"> Sucesso </response>
+            <response code="400"> ERROR: Parâmetro inválido </response>
+        </member>
+        <member name="M:API.Controllers.CollaboratorController.GetCpfCollaborator(System.String)">
+            <summary> Listar colaboradores por cpf </summary>
+            <response code="200"> Sucesso </response>
+            <response code="404"> ERROR: Colaborador não encontrado </response>
+        </member>
+        <member name="M:API.Controllers.CollaboratorController.GetNameCollaborator(System.String)">
+            <summary> Listar colaboradores por nome </summary>
+            <response code="200"> Sucesso </response>
+            <response code="404"> ERROR: Colaborador não encontrado </response>
+        </member>
+        <member name="M:API.Controllers.CollaboratorController.AddCollaborator(API.Dtos.Collaborator.CollaboratorNewDto)">
+             <summary> Cadastrar colaborador </summary>
+             <remarks>
+                 Exemplo RequestBody:
+            
+                          {
+                             "cpf":"06568386290",
+                             "name":"Marcela dos Santos Lopes",
+                             "birthDate":"2021-12-28T13:55:50.061Z",
+                             "gender": "F",
+                             "phone":"86987435689",
+                             "addressId":"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                          }
+            
+             </remarks>
+             <response code="201"> Sucesso </response>
+             <response code="400"> ERROR: Erro de validação </response>
+        </member>
+        <member name="M:API.Controllers.CollaboratorController.UpdateCollaborator(API.Dtos.Collaborator.CollaboratorUpdateDto,System.String)">
+             <summary> Atualizar collaborador </summary>
+             <remarks>
+                 Exemplo RequestBody:
+            
+                          {
+                             "name":"Marcela dos Santos Lopes",
+                             "gender": "F",
+                             "phone":"86987435689",
+                             "addressId":"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                          }
+            
+             </remarks>
+             <response code="204"> Sucesso: Sem conteúdo </response>
+             <response code="400"> ERROR: Erro de validação </response>
+             <response code="404"> ERROR: Colaborador não encontrado </response>
+        </member>
+        <member name="M:API.Controllers.CollaboratorController.DisableCollaborator(System.String)">
+            <summary> Desativar um colaborador </summary>
+            <param name="cpf"> cpf do colaborador que será desativado </param>
+            <response code="204"> Sucesso: Sem conteúdo </response>
+            <response code="404"> ERROR: Colaborador não encontrado </response>
+        </member>
+        <member name="M:API.Controllers.CollaboratorController.ReactivateCollaborator(System.String)">
+            <summary> Reativar um colaborador </summary>
+            <param name="cpf"> cpf do colaborador que será reativado </param>
+            <response code="204"> Sucesso: Sem conteúdo </response>
+            <response code="404"> ERROR: Colaborador não encontrado </response>
+        </member>
+        <member name="T:API.Models.Address">
+            <summary> Objeto que representa os dados de um endereço </summary>
+        </member>
+        <member name="P:API.Models.Address.Id">
+            <summary> Guid: Primary Key </summary>
+        </member>
+        <member name="P:API.Models.Address.Street">
+            <summary> string: Nome da rua </summary>
+            <example> Rua Projetada 1 </example>
+        </member>
+        <member name="P:API.Models.Address.Number">
+            <summary> string: Numero da rua </summary>
+            <example> 5B </example>
+        </member>
+        <member name="P:API.Models.Address.District">
+            <summary> string: Nome do bairro </summary>
+            <example> Villa </example>
+        </member>
+        <member name="P:API.Models.Address.City">
+            <summary> string: Nome da cidade </summary>
+            <example> Pedro II </example>
+        </member>
+        <member name="P:API.Models.Address.State">
+            <summary> string: Nome do estado </summary>
+            <example> PI </example>
+        </member>
+        <member name="P:API.Models.Address.isActive">
+            <summary> Boolean: variável de desativação do endereço </summary>
+            <example> true </example>
+        </member>
+        <member name="P:API.Models.Address.Collaborator">
+            <summary> List: Lista de colaboradores residentes do endereço </summary>
+        </member>
+        <member name="T:API.Models.Collaborator">
+            <summary> Objeto que representa os dados de um colaborador </summary>
+        </member>
+        <member name="P:API.Models.Collaborator.CPF">
+            <summary> string: Primary Key </summary>
+            <example> 06468786380 </example>
+        </member>
+        <member name="P:API.Models.Collaborator.Name">
+            <summary> string: Nome do colaborador </summary>
+            <example> Marcela dos Santos Lopes </example>
+        </member>
+        <member name="P:API.Models.Collaborator.BirthDate">
+            <summary> DateTime: Data de nascimento do colaborador </summary>
+        </member>
+    </members>
+</doc>

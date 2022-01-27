@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj": {}
+    "E:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj": {}
   },
   "projects": {
-    "e:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj": {
+    "E:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj",
+        "projectUniqueName": "E:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj",
         "projectName": "api",
-        "projectPath": "e:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj",
+        "projectPath": "E:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\api.csproj",
         "packagesPath": "C:\\Users\\MARCELA\\.nuget\\packages\\",
-        "outputPath": "e:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\obj\\",
+        "outputPath": "E:\\Arquivos Marcela\\Projetos\\C#\\API-Lead\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\MARCELA\\AppData\\Roaming\\NuGet\\NuGet.Config",
