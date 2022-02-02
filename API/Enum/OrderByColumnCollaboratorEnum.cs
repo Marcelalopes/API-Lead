@@ -4,7 +4,7 @@ namespace API.Enum
     {
         CPF,
         Name,
-        BithDate,
+        BirthDate,
         Phone,
         Gender        
     }
